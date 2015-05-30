@@ -1,5 +1,5 @@
 ﻿<?php
-  include ('book_sc_fns.php');
+  include ('../fns/book_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
 
@@ -44,7 +44,7 @@
     echo "<p>There are no items in your cart</p><hr/>";
   }
 
-  $target = "index.php";
+  $target = "../index.php";
 
   // if we have just added an item to the cart, continue shopping in that category
   if($new)   {

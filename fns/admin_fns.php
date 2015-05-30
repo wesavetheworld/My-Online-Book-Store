@@ -18,7 +18,7 @@ function display_category_form($category = '') {
   // optional PHP bits throughout
 ?>
   <form method="post"
-      action="<?php echo $edit ? 'edit_category.php' : 'insert_category.php'; ?>">
+      action="<?php echo $edit ? '../admin/edit_category.php' : '../admin/insert_category.php'; ?>">
   <table border="0">
   <tr>
     <td>Category Name:</td>
@@ -146,7 +146,7 @@ function display_password_form() {
 // displays html change password form
 ?>
    <br />
-   <form action="change_password.php" method="post">
+   <form action="../admin/change_password.php" method="post">
    <table width="250" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
    <tr><td>Old password:</td>
        <td><input type="password" name="old_passwd" size="16" maxlength="16" /></td>

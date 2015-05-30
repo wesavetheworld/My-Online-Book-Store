@@ -4,6 +4,9 @@ use book_sc;
 
 create table customers
 (
+  username varchar(16) not null,
+  passwd char(40) not null,
+  email char(40) not null,
   customerid int unsigned not null auto_increment primary key,
   name char(60) not null,
   address char(80) not null,
@@ -17,6 +20,7 @@ create table orders
 (
   orderid int unsigned not null auto_increment primary key,
   customerid int unsigned not null,
+  index (customerid),
   amount float(6,2),
   date date not null,
   order_status char(10),
@@ -35,7 +39,11 @@ create table books
    title char(100),
    catid int unsigned,
    price float(4,2) not null,
-   description varchar(255)
+   description varchar(255),
+   index (isbn),
+   index (author),
+   index (title),
+   index(description)
 ) DEFAULT CHARSET=utf8;
 
 create table categories
@@ -58,3 +66,11 @@ create table admin
   username char(16) not null primary key,
   password char(40) not null
 ) DEFAULT CHARSET=utf8;
+
+create table bookmark
+(
+  username char(16) not null primary key,
+  password char(40) not null
+) DEFAULT CHARSET=utf8;
+
+

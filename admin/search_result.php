@@ -6,7 +6,7 @@
  * @version $1$
  */
 
-require_once('book_sc_fns.php');
+require_once('../fns/book_sc_fns.php');
 try {
 	if (isset($_GET['search_mode']) && isset($_GET['search_request'])) {
 		$search_mode = $_GET['search_mode'];
