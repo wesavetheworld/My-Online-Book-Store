@@ -1,4 +1,5 @@
-<?php
+﻿<?php
+//显示特定目录所包含的图书
   include ('book_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();

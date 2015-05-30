@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 function calculate_shipping_cost() {
   // as we are shipping products all over the world
   // via teleportation, shipping is fixed

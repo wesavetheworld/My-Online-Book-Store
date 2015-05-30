@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 function db_connect() {
    $result = new mysqli('localhost', 'root', '', 'book_sc');
@@ -6,6 +6,7 @@ function db_connect() {
       return false;
    }
    $result->autocommit(TRUE);
+   $result->query('SET NAMES UTF8');//解决phpMyAdm中文乱码
    return $result;
 }
 

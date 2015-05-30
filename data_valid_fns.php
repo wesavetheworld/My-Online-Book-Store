@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 function filled_out($form_vars) {
   // test that each variable has a value

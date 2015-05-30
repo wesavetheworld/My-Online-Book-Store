@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
   include ('book_sc_fns.php');
   // The shopping cart needs sessions, so start one

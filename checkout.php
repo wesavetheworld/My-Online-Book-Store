@@ -1,4 +1,4 @@
-<?php
+﻿<?php
   //include our function set
   include ('book_sc_fns.php');
 

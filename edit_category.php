@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 // include function files for this application
 require_once('book_sc_fns.php');

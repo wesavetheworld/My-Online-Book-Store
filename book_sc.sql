@@ -1,4 +1,4 @@
-create database book_sc;
+create database book_sc character set utf8;
 
 use book_sc;
 
@@ -11,7 +11,7 @@ create table customers
   state char(20),
   zip char(10),
   country char(20) not null
-);
+) DEFAULT CHARSET=utf8;
 
 create table orders
 (
@@ -26,7 +26,7 @@ create table orders
   ship_state char(20),
   ship_zip char(10),
   ship_country char(20) not null
-);
+) DEFAULT CHARSET=utf8;
 
 create table books
 (
@@ -36,13 +36,13 @@ create table books
    catid int unsigned,
    price float(4,2) not null,
    description varchar(255)
-);
+) DEFAULT CHARSET=utf8;
 
 create table categories
 (
   catid int unsigned not null auto_increment primary key,
   catname char(60) not null
-);
+) DEFAULT CHARSET=utf8;
 
 create table order_items
 (
@@ -51,14 +51,10 @@ create table order_items
   item_price float(4,2) not null,
   quantity tinyint unsigned not null,
   primary key (orderid, isbn)
-);
+) DEFAULT CHARSET=utf8;
 
 create table admin
 (
   username char(16) not null primary key,
   password char(40) not null
-);
-
-grant select, insert, update, delete
-on book_sc.*
-to book_sc@localhost identified by 'password';
+) DEFAULT CHARSET=utf8;

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 function process_card($card_details) {
   // connect to payment gateway or
   // use gpg to encrypt and mail or
@@ -23,7 +23,7 @@ function insert_order($order_details) {
 
   $conn = db_connect();
 
-  // we want to insert the order as a transaction
+  // we want to insert the order as a transaction 事务
   // start one by turning off autocommit
   $conn->autocommit(FALSE);
 

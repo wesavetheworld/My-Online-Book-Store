@@ -1,4 +1,4 @@
-<?php
+﻿<?php
   include ('book_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
@@ -38,7 +38,7 @@
 
   do_html_header("Your shopping cart");
 
-  if(($_SESSION['cart']) && (array_count_values($_SESSION['cart']))) {
+  if(isset($_SESSION['cart']) && (array_count_values($_SESSION['cart']))) {
     display_cart($_SESSION['cart']);
   } else {
     echo "<p>There are no items in your cart</p><hr/>";
