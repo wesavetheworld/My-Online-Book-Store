@@ -1,16 +1,22 @@
 <?php
-/**
- * 
- * @authors linzebing
- * @date    2015-05-28 22:04:49
- * @version $1$
- */
 
 function db_connect() {
-	$result = new mysqli('localhost','root','','bookmarks');
-	if (!$result) {
-		throw new Exception("Couldn't connect to  database", 1);
-	} else {
-		return $result;
-	}
+   $result = new mysqli('localhost', 'root', '', 'book_sc');
+   if (!$result) {
+      return false;
+   }
+   $result->autocommit(TRUE);
+   return $result;
 }
+
+function db_result_to_array($result) {
+   $res_array = array();
+
+   for ($count=0; $row = $result->fetch_assoc(); $count++) {
+     $res_array[$count] = $row;
+   }
+
+   return $res_array;
+}
+
+?>
