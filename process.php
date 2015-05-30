@@ -1,5 +1,5 @@
 ﻿<?php
-  include ('../fns/book_sc_fns.php');
+  include ('book_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
 
@@ -22,7 +22,7 @@
       //empty shopping cart
       session_destroy();
       echo "<p>Thank you for shopping with us. Your order has been placed.</p>";
-      display_button("../index.php", "continue-shopping", "Continue Shopping");
+      display_button("index.php", "continue-shopping", "Continue Shopping");
     } else {
       echo "<p>Could not process your card. Please contact the card issuer or try again.</p>";
       display_button("purchase.php", "back", "Back");

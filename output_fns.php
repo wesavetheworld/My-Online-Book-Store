@@ -1,70 +1,5 @@
 ﻿<?php
 
-function index_html_header($title = '') {
-  // print an HTML header
-
-  // declare the session variables we want access to inside the function
-  if (!isset($_SESSION['items'])) {
-    $_SESSION['items'] = '0';
-  }
-  if (!isset($_SESSION['total_price'])) {
-    $_SESSION['total_price'] = '0.00';
-  }
-?>
-  <html>
-  <head>
-    <title><?php echo $title; ?></title>
-    <style>
-      h2 { font-family: Arial, Helvetica, sans-serif; font-size: 22px; color: red; margin: 6px }
-      body { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
-      li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
-      hr { color: #FF0000; width=70%; text-align=center}
-      a { color: #000000 }
-    </style>
-  </head>
-  <body>
-  <table width="100%" border="0" cellspacing="0" bgcolor="#cccccc">
-  <tr>
-  <td rowspan="2">
-  <a href="../index.php"><img src="images/Book-O-Rama.gif" alt="Bookorama" border="0"
-       align="left" valign="bottom" height="55" width="325"/></a>
-  </td>
-  <td align="right" valign="bottom">
-  <?php
-     if(isset($_SESSION['admin_user'])) {
-       echo "&nbsp;";
-     } else {
-       echo "Total Items = ".$_SESSION['items'];
-     }
-  ?>
-  </td>
-  <td align="right" rowspan="2" width="135">
-  <?php
-     if(isset($_SESSION['admin_user'])) {
-       display_button('admin/logout.php', 'log-out', 'Log Out');
-     } else {
-       display_button('cart/show_cart.php', 'view-cart', 'View Your Shopping Cart');
-     }
-  ?>
-  </tr>
-  <tr>
-  <td align="right" valign="top">
-  <?php
-     if(isset($_SESSION['admin_user'])) {
-       echo "&nbsp;";
-     } else {
-       echo "Total Price = $".number_format($_SESSION['total_price'],2);
-     }
-  ?>
-  </td>
-  </tr>
-  </table>
-<?php
-  if($title) {
-    do_html_heading($title);
-  }
-}
-
 function do_html_header($title = '') {
   // print an HTML header
 
@@ -91,7 +26,7 @@ function do_html_header($title = '') {
   <table width="100%" border="0" cellspacing="0" bgcolor="#cccccc">
   <tr>
   <td rowspan="2">
-  <a href="../index.php"><img src="../images/Book-O-Rama.gif" alt="Bookorama" border="0"
+  <a href="index.php"><img src="images/Book-O-Rama.gif" alt="Bookorama" border="0"
        align="left" valign="bottom" height="55" width="325"/></a>
   </td>
   <td align="right" valign="bottom">
@@ -106,9 +41,9 @@ function do_html_header($title = '') {
   <td align="right" rowspan="2" width="135">
   <?php
      if(isset($_SESSION['admin_user'])) {
-       display_button('../admin/logout.php', 'log-out', 'Log Out');
+       display_button('logout.php', 'log-out', 'Log Out');
      } else {
-       display_button('../cart/show_cart.php', 'view-cart', 'View Your Shopping Cart');
+       display_button('show_cart.php', 'view-cart', 'View Your Shopping Cart');
      }
   ?>
   </tr>
@@ -172,7 +107,7 @@ function display_categories($cat_array) {
 function display_books($book_array) {
   //display all books in the array passed in
   if (!is_array($book_array)) {
-    echo "<p>No books currently available</p>";
+    echo "<p>No books currently available in this category</p>";
   } else {
     //create table
     echo "<table width=\"100%\" border=\"0\">";
@@ -208,7 +143,7 @@ function display_book_details($book) {
     if (@file_exists("images/".$book['isbn'].".jpg"))  {
       $size = GetImageSize("images/".$book['isbn'].".jpg");
       if(($size[0] > 0) && ($size[1] > 0)) {
-        echo "<td><img src=\"../images/".$book['isbn'].".jpg\"
+        echo "<td><img src=\"images/".$book['isbn'].".jpg\"
               style=\"border: 1px solid black\"/></td>";
       }
     }
@@ -233,7 +168,7 @@ function display_checkout_form() {
 ?>
   <br />
   <table border="0" width="100%" cellspacing="0">
-  <form action="../cart/purchase.php" method="post">
+  <form action="purchase.php" method="post">
   <tr><th colspan="2" bgcolor="#cccccc">Your Details</th></tr>
   <tr>
     <td>Name</td>
@@ -312,7 +247,7 @@ function display_card_form($name) {
   //display form asking for credit card details
 ?>
   <table border="0" width="100%" cellspacing="0">
-  <form action="../cart/process.php" method="post">
+  <form action="process.php" method="post">
   <tr><th colspan="2" bgcolor="#cccccc">Credit Card Details</th></tr>
   <tr>
     <td>Type</td>
@@ -394,7 +329,7 @@ function display_cart($cart, $change = true, $images = 1) {
       if (file_exists("images/".$isbn.".jpg")) {
          $size = GetImageSize("images/".$isbn.".jpg");
          if(($size[0] > 0) && ($size[1] > 0)) {
-           echo "<img src=\"../images/".$isbn.".jpg\"
+           echo "<img src=\"images/".$isbn.".jpg\"
                   style=\"border: 1px solid black\"
                   width=\"".($size[0]/3)."\"
                   height=\"".($size[1]/3)."\"/>";
@@ -433,7 +368,7 @@ function display_cart($cart, $change = true, $images = 1) {
           <td colspan=\"".(2+$images)."\">&nbsp;</td>
           <td align=\"center\">
              <input type=\"hidden\" name=\"save\" value=\"true\"/>
-             <input type=\"image\" src=\"../images/save-changes.gif\"
+             <input type=\"image\" src=\"images/save-changes.gif\"
                     border=\"0\" alt=\"Save Changes\"/>
           </td>
           <td>&nbsp;</td>
@@ -445,7 +380,7 @@ function display_cart($cart, $change = true, $images = 1) {
 function display_login_form() {
   // dispaly form asking for name and password
 ?>
- <form method="post" action="../admin/admin.php">
+ <form method="post" action="admin.php">
  <table bgcolor="#cccccc">
    <tr>
      <td>Username:</td>
@@ -464,7 +399,7 @@ function display_login_form() {
 function display_admin_menu() {
 ?>
 <br />
-<a href="../index.php">Go to main site</a><br />
+<a href="index.php">Go to main site</a><br />
 <a href="insert_category_form.php">Add a new category</a><br />
 <a href="insert_book_form.php">Add a new book</a><br />
 <a href="change_password_form.php">Change admin password</a><br />
@@ -473,14 +408,14 @@ function display_admin_menu() {
 
 function display_button($target, $image, $alt) {
   echo "<div align=\"center\"><a href=\"".$target."\">
-          <img src=\"../images/".$image.".gif\"
+          <img src=\"images/".$image.".gif\"
            alt=\"".$alt."\" border=\"0\" height=\"50\"
            width=\"135\"/></a></div>";
 }
 
 function display_form_button($image, $alt) {
   echo "<div align=\"center\"><input type=\"image\"
-           src=\"../images/".$image.".gif\"
+           src=\"images/".$image.".gif\"
            alt=\"".$alt."\" border=\"0\" height=\"50\"
            width=\"135\"/></div>";
 }
@@ -502,59 +437,6 @@ function display_search() {
    <input type="submit" class="s-submit search-box__button" hidefocus="true" value="搜索"  data-mod="sr" style="width:60px; height:30px;">
   </tr>
  </form>
-<?php
-}
-
-function display_registration_form() {
-?>
-    <table border="0" width="100%" cellspacing="0">
-  <form action="../reg/register_new.php" method="post">
-  <tr><th colspan="2" bgcolor="#cccccc">Your Details</th></tr>
-  <tr>
-    <td>User Name(max 16 chars)</td>
-    <td><input type="text" name="username" value="" maxlength="16" size="16"/></td>
-  </tr>
-  <tr>
-    <td>Password</td>
-    <td><input type="password" name="passwd" value="" maxlength="16" size="16"/></td>
-  </tr>
-  <tr>
-    <td>Confirm Password</td>
-    <td><input type="text" name="passwd2" value="" maxlength="16" size="16"/></td>
-  </tr>
-  <tr>
-    <td>Email</td>
-    <td><input type="text" name="email" value="" maxlength="100" size="30"/></td>
-  </tr>
-  <tr>
-    <td>Name</td>
-    <td><input type="text" name="name" value="" maxlength="40" size="40"/></td>
-  </tr>
-  <tr>
-    <td>Address</td>
-    <td><input type="text" name="address" value="" maxlength="40" size="40"/></td>
-  </tr>
-  <tr>
-    <td>City/Suburb</td>
-    <td><input type="text" name="city" value="" maxlength="20" size="40"/></td>
-  </tr>
-  <tr>
-    <td>State/Province</td>
-    <td><input type="text" name="state" value="" maxlength="20" size="40"/></td>
-  </tr>
-  <tr>
-    <td>Postal Code or Zip Code</td>
-    <td><input type="text" name="zip" value="" maxlength="10" size="40"/></td>
-  </tr>
-  <tr>
-    <td>Country</td>
-    <td><input type="text" name="country" value="" maxlength="20" size="40"/></td>
-  </tr>
-  <tr>
-     <td colspan=2 align="center">
-     <input type="submit" value="Register"></td></tr>
-  </form>
-  </table>
 <?php
 }
 

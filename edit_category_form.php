@@ -1,15 +1,17 @@
 ﻿<?php
 
 // include function files for this application
-require_once('../fns/book_sc_fns.php');
+require_once('book_sc_fns.php');
 session_start();
 
-do_html_header("Edit book details");
+do_html_header("Edit category");
 if (check_admin_user()) {
-  if ($book = get_book_details($_GET['isbn'])) {
-    display_book_form($book);
+  if ($catname = get_category_name($_GET['catid'])) {
+    $catid = $_GET['catid'];
+    $cat = compact('catname', 'catid');
+    display_category_form($cat);
   } else {
-    echo "<p>Could not retrieve book details.</p>";
+    echo "<p>Could not retrieve category details.</p>";
   }
   do_html_url("admin.php", "Back to administration menu");
 } else {

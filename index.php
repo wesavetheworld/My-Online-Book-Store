@@ -1,9 +1,9 @@
 <?php
 //网站首页，显示系统中的图书目录
-  include ('fns/book_sc_fns.php');
+  include ('book_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
-  index_html_header("Welcome to Book-O-Rama");
+  do_html_header("Welcome to Book-O-Rama");
   display_search();
   echo "<p>Please choose a category:</p>";
 

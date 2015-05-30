@@ -1,5 +1,5 @@
 ﻿<?php
-require_once('../fns/book_sc_fns.php');
+ require_once('book_sc_fns.php');
  session_start();
  do_html_header('Changing password');
  check_admin_user();
