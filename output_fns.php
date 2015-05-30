@@ -420,4 +420,24 @@ function display_form_button($image, $alt) {
            width=\"135\"/></div>";
 }
 
+function display_search() {
+?>
+    <form action="search_result.php", method = "get">
+<tr>
+    <td><select name="search_mode" style="width:60px; height:30px;">
+    <option value="title">书名</option>
+    <option value="author">作者</option>
+    <option value="description">描述</option>
+        <option value="isbn">ISBN</option>
+        </select>
+    </td>
+  </tr>
+ <tr>
+    <td><input type="text" name="search_request" value="" maxlength="16" style="width:300px; height:30px;"></td>
+   <input type="submit" class="s-submit search-box__button" hidefocus="true" value="搜索"  data-mod="sr" style="width:60px; height:30px;">
+  </tr>
+ </form>
+<?php
+}
+
 ?>

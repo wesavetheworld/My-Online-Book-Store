@@ -4,7 +4,7 @@
   // The shopping cart needs sessions, so start one
   session_start();
   do_html_header("Welcome to Book-O-Rama");
-
+  display_search();
   echo "<p>Please choose a category:</p>";
 
   // get categories out of database
