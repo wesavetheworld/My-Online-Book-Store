@@ -59,7 +59,18 @@ function do_html_header($title = '') {
   ?>
   </td>
   </tr>
-  <tr><a href="register_form.php">Not a member?</a> &nbsp; <a href="user_login.php">User login</a></tr>
+  <tr><a href="register_form.php">Not a member?</a> 
+  <?php
+    if (!isset($_SESSION['valid_user'])) {
+      ?>
+      &nbsp; <a href="user_login.php">User login</a></tr>
+      <?php
+    } else {
+      ?>
+      &nbsp; <a href="member.php">My account</a></tr> &nbsp; <a href="user_logout.php">Log out</a></tr>
+      <?php
+    }
+  ?>
   </table>
 <?php
   if($title) {

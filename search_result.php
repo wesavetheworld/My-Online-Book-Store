@@ -7,6 +7,7 @@
  */
 
 require_once('book_sc_fns.php');
+session_start();
 try {
 	if (isset($_GET['search_mode']) && isset($_GET['search_request'])) {
 		$search_mode = $_GET['search_mode'];

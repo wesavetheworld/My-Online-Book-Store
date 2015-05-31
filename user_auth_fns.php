@@ -85,5 +85,34 @@ function change_password($username, $old_password, $new_password) {
   }
 }
 
+function user_login($username, $password) {
+  $conn = db_connect();
+  $result = $conn->query("select customerid from customers
+                         where username='".$username."'
+                         and passwd = sha1('".$password."')");
+  if (!$result) {
+    throw new Exception("Could not log you in.", 1);
+  } 
+  if ($result->num_rows>0) {
+    return $result->fetch_object()->customerid; //$result->fetch_object  返回当前行
+  } else {
+    throw new Exception("Could not log you in.", 1);
+  }
+}
+
+function check_valid_user() {
+// see if somebody is logged in and notify them if not
+  if (isset($_SESSION['valid_user']))  {
+      echo "You are logged in. Welcome!<br />";
+  } else {
+     // they are not logged in
+     do_html_heading('Problem:');
+     echo 'You are not logged in.<br />';
+     do_html_url('login.php', 'Login');
+     do_html_footer();
+     exit;
+  }
+}
+
 
 ?>
