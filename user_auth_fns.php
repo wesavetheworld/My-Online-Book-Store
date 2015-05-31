@@ -2,6 +2,27 @@
 
 require_once('db_fns.php');
 
+function register($username, $email, $passwd, $phonenum, $address, $name) {
+    $conn = db_connect();
+
+    $result = $conn->query("select * from customers where username='".$username."'");
+  if (!$result) {
+    throw new Exception('Could not execute query');
+  }
+
+  if ($result->num_rows>0) {
+    throw new Exception('That username is taken - go back and choose another one.');
+  }
+
+  // if ok, put in db
+  $result = $conn->query("insert into customers values
+                         ('','".$name."','".$phonenum."','".$address."','".$username."',sha1('".$passwd."'), '".$email."')");
+  if (!$result) {
+    throw new Exception('Could not register you in database - please try again later.');
+  }
+  return true;
+}
+
 function login($username, $password) {
 // check username and password with db
 // if yes, return true

@@ -7,7 +7,7 @@
 
   do_html_header("Checkout");
 
-  if(($_SESSION['cart']) && (array_count_values($_SESSION['cart']))) {
+  if(isset($_SESSION['cart']) && (array_count_values($_SESSION['cart']))) {
     display_cart($_SESSION['cart'], false, 0);
     display_checkout_form();
   } else {

@@ -1,4 +1,5 @@
-﻿<?php
+﻿
+<?php
 
 function do_html_header($title = '') {
   // print an HTML header
@@ -58,6 +59,7 @@ function do_html_header($title = '') {
   ?>
   </td>
   </tr>
+  <tr><a href="register_form.php">Not a member?</a> &nbsp; <a href="user_login.php">User login</a></tr>
   </table>
 <?php
   if($title) {
@@ -437,6 +439,70 @@ function display_search() {
    <input type="submit" class="s-submit search-box__button" hidefocus="true" value="搜索"  data-mod="sr" style="width:60px; height:30px;">
   </tr>
  </form>
+<?php
+}
+
+function display_registration_form() {
+?>
+  <form method="post" action="register_new.php">
+ <table bgcolor="#cccccc">
+  <tr><th colspan="2" bgcolor="#cccccc">Your Details</th></tr>
+  <tr>
+    <td>User Name</td>
+    <td><input type="text" name="username" value="" maxlength="16" size="20"/></td>
+  </tr>
+  <tr>
+    <td>Password</td>
+    <td><input type="password" name="passwd" value="" maxlength="16" size="20"/></td>
+  </tr>
+  <tr>
+    <td>Confirm Password</td>
+    <td><input type="password" name="passwd2" value="" maxlength="16" size="20"/></td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td><input type="text" name="name" value="" maxlength="40" size="20"/></td>
+  </tr>
+  <tr>
+    <td>Phone number</td>
+    <td ><input type="text" name="phonenum" value="" maxlength="11" size="20"/></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><input type="text" name="email" value="" maxlength="100" size="20"/></td>
+  </tr>
+  <tr>
+    <td>Address</td>
+    <td><input type="text" name="address" value="" maxlength="40" size="20"/></td>
+  </tr>
+  <tr>
+     <td colspan=4 align="center">
+     <input type="submit" value="Register"></td></tr>
+  </form>
+  </table>
+<?php
+}
+
+function display_user_login_form() {
+?>
+  <p><a href="register_form.php">Not a member?</a></p>
+  <form method="post" action="member.php">
+  <table bgcolor="#cccccc">
+   <tr>
+     <td colspan="2">Members log in here:</td>
+   <tr>
+     <td>Username:</td>
+     <td><input type="text" name="username"/></td></tr>
+   <tr>
+     <td>Password:</td>
+     <td><input type="password" name="passwd"/></td></tr>
+   <tr>
+     <td colspan="2" align="center">
+     <input type="submit" value="Log in"/></td></tr>
+   <tr>
+     <td colspan="2"><a href="forgot_form.php">Forgot your password?</a></td>
+   </tr>
+ </table></form>
 <?php
 }
 
