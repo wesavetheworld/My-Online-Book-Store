@@ -12,13 +12,14 @@ function insert_order($order_details) {
   extract($order_details);
 
   // set shipping address same as address
-  if((!$ship_name) && (!$ship_address) && (!$ship_city) && (!$ship_state) && (!$ship_zip) && (!$ship_country)) {
-    $ship_name = $name;
-    $ship_address = $address;
-    $ship_city = $city;
-    $ship_state = $state;
-    $ship_zip = $zip;
-    $ship_country = $country;
+  $conn = db_connect();
+  $id = $_SESSION['valid_user'];
+  $result = $conn->query("select * from customers where customerid = '".$id."'")->fetch_object();
+  if((!$ship_name) && (!$ship_address) && (!$ship_email) && (!$ship_phonenum) ) {
+    $ship_name = $result->name;
+    $ship_address = $result->address;
+    $ship_email = $result->email;
+    $ship_phonenum = $result->phonenum;
   }
 
   $conn = db_connect();
@@ -28,7 +29,7 @@ function insert_order($order_details) {
   $conn->autocommit(FALSE);
 
   // insert customer address
-  $query = "select customerid from customers where
+  /*$query = "select customerid from customers where
             name = '".$name."' and address = '".$address."'
             and city = '".$city."' and state = '".$state."'
             and zip = '".$zip."' and country = '".$country."'";
@@ -46,16 +47,15 @@ function insert_order($order_details) {
     if (!$result) {
        return false;
     }
-  }
+  }*/
 
-  $customerid = $conn->insert_id;
+  $customerid = $_SESSION['valid_user'];
 
   $date = date("Y-m-d");
 
   $query = "insert into orders values
-            ('', '".$customerid."', '".$_SESSION['total_price']."', '".$date."', '".PARTIAL."',
-             '".$ship_name."', '".$ship_address."', '".$ship_city."', '".$ship_state."',
-             '".$ship_zip."', '".$ship_country."')";
+            ('', '".$customerid."', '".$ship_phonenum."','".$ship_email."','".$_SESSION['total_price']."', '".$date."', 'PARTIAL',
+             '".$ship_name."', '".$ship_address."')";
 
   $result = $conn->query($query);
   if (!$result) {
@@ -70,10 +70,8 @@ function insert_order($order_details) {
                order_status = 'PARTIAL' and
                ship_name = '".$ship_name."' and
                ship_address = '".$ship_address."' and
-               ship_city = '".$ship_city."' and
-               ship_state = '".$ship_state."' and
-               ship_zip = '".$ship_zip."' and
-               ship_country = '".$ship_country."'";
+               ship_email = '".$ship_email."' and
+               ship_phonenum = '".$ship_phonenum."'";
 
   $result = $conn->query($query);
 

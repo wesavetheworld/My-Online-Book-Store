@@ -7,7 +7,10 @@
 
   do_html_header("Checkout");
 
-  if(isset($_SESSION['cart']) && (array_count_values($_SESSION['cart']))) {
+  if (!isset($_SESSION['valid_user'])) {
+    echo "<p> You must be logged in to check out. </p>";
+  }
+  else if(isset($_SESSION['cart']) &&  (array_count_values($_SESSION['cart']))) {
     display_cart($_SESSION['cart'], false, 0);
     display_checkout_form();
   } else {

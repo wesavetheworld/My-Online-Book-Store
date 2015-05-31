@@ -10,8 +10,11 @@
   $card_month = $_POST['card_month'];
   $card_year = $_POST['card_year'];
   $card_name = $_POST['card_name'];
-
-  if(($_SESSION['cart']) && ($card_type) && ($card_number) &&
+  if (!isset($_SESSION['cart'])) {
+      echo "<p>There are no items in your cart</p><hr/>";
+      display_button("index.php", "continue-shopping", "Continue Shopping");
+  }
+  else if(isset($_SESSION['cart']) && ($card_type) && ($card_number) &&
      ($card_month) && ($card_year) && ($card_name)) {
     //display cart, not allowing changes and without pictures
     display_cart($_SESSION['cart'], false, 0);
@@ -20,7 +23,10 @@
 
     if(process_card($_POST)) {
       //empty shopping cart
-      session_destroy();
+      //session_destroy();
+      unset($_SESSION['cart']);
+      unset($_SESSION['items']);
+      unset($_SESSION['total_price']);
       echo "<p>Thank you for shopping with us. Your order has been placed.</p>";
       display_button("index.php", "continue-shopping", "Continue Shopping");
     } else {

@@ -16,8 +16,9 @@ create table customers
 create table orders
 (
   orderid int unsigned not null auto_increment primary key,
-  customerid int unsigned not null,
-  phonenum char(11),
+  customerid int unsigned not null references customers(customerid),
+  ship_phonenum char(11),
+  ship_email varchar(100) not null,
   index (customerid),
   amount float(6,2),
   date date not null,
@@ -48,8 +49,8 @@ create table categories
 
 create table order_items
 (
-  orderid int unsigned not null,
-  isbn char(13) not null,
+  orderid int unsigned not null references orders(orderid),
+  isbn char(13) not null references books(isbn),
   item_price float(4,2) not null,
   quantity tinyint unsigned not null,
   primary key (orderid, isbn)

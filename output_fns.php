@@ -183,29 +183,26 @@ function display_checkout_form() {
   <table border="0" width="100%" cellspacing="0">
   <form action="purchase.php" method="post">
   <tr><th colspan="2" bgcolor="#cccccc">Your Details</th></tr>
-  <tr>
+  <?php
+      $conn = db_connect();
+      $id = $_SESSION['valid_user'];
+      $result = $conn->query("select * from customers where customerid = '".$id."'")->fetch_object();
+  ?>
+      <tr>
     <td>Name</td>
-    <td><input type="text" name="name" value="" maxlength="40" size="40"/></td>
+    <td><?php echo $result->name;  ?></td>
   </tr>
   <tr>
     <td>Address</td>
-    <td><input type="text" name="address" value="" maxlength="40" size="40"/></td>
+    <td><?php echo $result->address;  ?></td>
   </tr>
   <tr>
-    <td>City/Suburb</td>
-    <td><input type="text" name="city" value="" maxlength="20" size="40"/></td>
+    <td>Phone number</td>
+    <td><?php echo $result->phonenum;  ?></td>
   </tr>
   <tr>
-    <td>State/Province</td>
-    <td><input type="text" name="state" value="" maxlength="20" size="40"/></td>
-  </tr>
-  <tr>
-    <td>Postal Code or Zip Code</td>
-    <td><input type="text" name="zip" value="" maxlength="10" size="40"/></td>
-  </tr>
-  <tr>
-    <td>Country</td>
-    <td><input type="text" name="country" value="" maxlength="20" size="40"/></td>
+    <td>Email</td>
+    <td><?php echo $result->email;  ?></td>
   </tr>
   <tr><th colspan="2" bgcolor="#cccccc">Shipping Address (leave blank if as above)</th></tr>
   <tr>
@@ -217,20 +214,12 @@ function display_checkout_form() {
     <td><input type="text" name="ship_address" value="" maxlength="40" size="40"/></td>
   </tr>
   <tr>
-    <td>City/Suburb</td>
-    <td><input type="text" name="ship_city" value="" maxlength="20" size="40"/></td>
+    <td>Phone number</td>
+    <td><input type="text" name="ship_phonenum" value="" maxlength="20" size="40"/></td>
   </tr>
   <tr>
-    <td>State/Province</td>
-    <td><input type="text" name="ship_state" value="" maxlength="20" size="40"/></td>
-  </tr>
-  <tr>
-    <td>Postal Code or Zip Code</td>
-    <td><input type="text" name="ship_zip" value="" maxlength="10" size="40"/></td>
-  </tr>
-  <tr>
-    <td>Country</td>
-    <td><input type="text" name="ship_country" value="" maxlength="20" size="40"/></td>
+    <td>Email</td>
+    <td><input type="text" name="ship_email" value="" maxlength="20" size="40"/></td>
   </tr>
   <tr>
     <td colspan="2" align="center"><p><strong>Please press Purchase to confirm
@@ -247,10 +236,10 @@ function display_shipping($shipping) {
   // display table row with shipping cost and total price including shipping
 ?>
   <table border="0" width="100%" cellspacing="0">
-  <tr><td align="left">Shipping</td>
-      <td align="right"> <?php echo number_format($shipping, 2); ?></td></tr>
+  <tr><td align="left">Shipping</td> 
+      <td align="right"> <?php echo '$'; echo number_format($shipping, 2); echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ?></td></tr>
   <tr><th bgcolor="#cccccc" align="left">TOTAL INCLUDING SHIPPING</th>
-      <th bgcolor="#cccccc" align="right">$ <?php echo number_format($shipping+$_SESSION['total_price'], 2); ?></th>
+      <th bgcolor="#cccccc" align="right">$<?php echo number_format($shipping+$_SESSION['total_price'], 2); echo "&nbsp;&nbsp;&nbsp;&nbsp;" ?></th>
   </tr>
   </table><br />
 <?php
