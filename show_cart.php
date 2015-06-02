@@ -14,7 +14,7 @@
     }
 
     if(isset($_SESSION['cart'][$new])) {
-      $_SESSION['cart'][$new]++;
+      //$_SESSION['cart'][$new]++;
     } else {
       $_SESSION['cart'][$new] = 1;
     }

@@ -39,13 +39,16 @@ try {
 
     register($username, $email, $passwd, $phonenum, $address,$name);
 
-    $_SESSION['valid_user'] = $username;
+    $conn = db_connect();
+    $result = $conn->query("select * from customers where username='".$username."'")->fetch_object();
+    $_SESSION['valid_user'] = $result->customerid;
 
     do_html_header('Registration successful');
     do_html_footer();
 } catch (Exception $e) {
 	echo 'Problem:<br/>';
-	echo $e->getMessage();
+    do_html_header($e->getMessage());
 	do_html_footer();
 	exit;
 }
+

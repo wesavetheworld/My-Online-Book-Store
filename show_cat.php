@@ -8,7 +8,7 @@
   $name = get_category_name($catid);
 
   do_html_header($name);
-
+  display_search();
   // get the book info out from db
   $book_array = get_books($catid);
 

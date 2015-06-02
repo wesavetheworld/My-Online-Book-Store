@@ -38,7 +38,9 @@ create table books
    title char(100),
    catid int unsigned,
    price float(4,2) not null,
-   description varchar(255)
+   url char(255) not null,
+   description varchar(255),
+   site char(255)
 ) DEFAULT CHARSET=utf8;
 
 create table categories

@@ -114,5 +114,19 @@ function check_valid_user() {
   }
 }
 
+function deal_with_title($title){
+  if (substr($title, 0,3)==="《") {
+        $title = substr($title, 3);
+      }
+      $title = split('。', $title)[0];
+      $title = split('《', $title)[0];
+      $title = split('《', $title)[0];
+      $title = split('（', $title)[0];
+      $title = split('\(', $title)[0];
+      $title = split('》',$title)[0];
+      $title = split('【',$title)[0];
+      return $title;
+}
+
 
 ?>

@@ -7,7 +7,10 @@
 
   // get this book out of database
   $book = get_book_details($isbn);
-  do_html_header($book['title']);
+  $title = deal_with_title($book['title']);
+
+  do_html_header($title);
+  display_search();
   display_book_details($book);
 
   // set url for "continue button"

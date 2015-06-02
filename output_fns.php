@@ -21,6 +21,7 @@ function do_html_header($title = '') {
       li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
       hr { color: #FF0000; width=70%; text-align=center}
       a { color: #000000 }
+
     </style>
   </head>
   <body>
@@ -124,7 +125,6 @@ function display_books($book_array) {
   } else {
     //create table
     echo "<table width=\"100%\" border=\"0\">";
-
     //create a table row for each book
     foreach ($book_array as $row) {
       $url = "show_book.php?isbn=".$row['isbn'];
@@ -137,8 +137,14 @@ function display_books($book_array) {
         echo "&nbsp;";
       }
       echo "</td><td>";
-      $title = $row['title']." by ".$row['author'];
-      do_html_url($url, $title);
+      //$title = $row['title']." by ".$row['author'];
+      $title = deal_with_title($row['title']);
+      ?>
+
+      <a href="<?php echo $url; ?>"><?php echo $title; ?></a>
+      <?php
+      echo '<font color="#FF0000"> ￥'.$row['price']."<font>";
+
       echo "</td></tr>";
     }
 
@@ -153,22 +159,26 @@ function display_book_details($book) {
   if (is_array($book)) {
     echo "<table><tr>";
     //display the picture if there is one
-    if (@file_exists("images/".$book['isbn'].".jpg"))  {
+    /*if (@file_exists("images/".$book['isbn'].".jpg"))  {
       $size = GetImageSize("images/".$book['isbn'].".jpg");
       if(($size[0] > 0) && ($size[1] > 0)) {
         echo "<td><img src=\"images/".$book['isbn'].".jpg\"
               style=\"border: 1px solid black\"/></td>";
       }
-    }
+    }*/
     echo "<td><ul>";
     echo "<li><strong>Author:</strong> ";
     echo $book['author'];
     echo "</li><li><strong>ISBN:</strong> ";
     echo $book['isbn'];
     echo "</li><li><strong>Our Price:</strong> ";
-    echo number_format($book['price'], 2);
+    echo "<font color='red' size = '3'>".number_format($book['price'], 2)."</font>";
     echo "</li><li><strong>Description:</strong> ";
     echo $book['description'];
+    echo "</li><li><strong>From:</strong> ";
+    echo $book['site'];
+    echo "</li><li><strong>购买链接:</strong> ";
+    echo '<a color = "red" href ="'.$book['url'].'">'.deal_with_title($book['title']).'</a>';
     echo "</li></ul></td></tr></table>";
   } else {
     echo "<p>The details of this book cannot be displayed at this time.</p>";
