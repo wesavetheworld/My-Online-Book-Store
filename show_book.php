@@ -7,8 +7,8 @@
 
   // get this book out of database
   $book = get_book_details($isbn);
-  $title = deal_with_title($book['title']);
-
+  $title =$book['title'];
+  //$title = $book['title'];
   do_html_header($title);
   display_search();
   display_book_details($book);

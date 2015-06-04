@@ -40,7 +40,9 @@ create table books
    price float(4,2) not null,
    url char(255) not null,
    description varchar(255),
-   site char(255)
+   site char(255),
+   image_url char(255),
+   num int unsigned not null,
 ) DEFAULT CHARSET=utf8;
 
 create table categories

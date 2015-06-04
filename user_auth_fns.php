@@ -114,19 +114,23 @@ function check_valid_user() {
   }
 }
 
-function deal_with_title($title){
+/*function deal_with_title($title){
+  $orititle = $title;
   if (substr($title, 0,3)==="《") {
         $title = substr($title, 3);
       }
+      if (substr($title, 0,3)==="【") {
+        $title = split('】',$title)[1];
+      }
       $title = split('。', $title)[0];
-      $title = split('《', $title)[0];
       $title = split('《', $title)[0];
       $title = split('（', $title)[0];
       $title = split('\(', $title)[0];
       $title = split('》',$title)[0];
       $title = split('【',$title)[0];
-      return $title;
-}
+      if (strlen($title)==0) return $orititle;
+      else return $title;
+}*/
 
 
 ?>
