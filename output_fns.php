@@ -21,7 +21,6 @@ function do_html_header($title = '') {
       li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
       hr { color: #FF0000; width=70%; text-align=center}
       a { color: #000000 }
-
     </style>
   </head>
   <body>
@@ -82,6 +81,20 @@ function do_html_header($title = '') {
 function do_html_footer() {
   // print an HTML footer
 ?>
+      <!-- <footer id="global-footer">
+          <p>Lovingly created and maintained by <a href = "https://github.com/linzebing"> Zebing Lin </a>.</p>
+      <hr>
+         <p>All Rights Reserved.</p>
+        </footer> -->
+  <div class="footer">
+  <div class="container">
+    <hr>
+    Powered by <a href="http://php.net/"><font color = "blue">PHP Technologies</font></a> 
+    <br>
+    Copyright &copy; <a href="https://github.com/linzebing" ><font color = "blue">Zebing Lin(林泽冰)</font></a>.
+    <br> All rights reserved.
+      </div>
+</div>
   </body>
   </html>
 <?php
@@ -115,7 +128,6 @@ function display_categories($cat_array) {
     echo "</li>";
   }
   echo "</ul>";
-  echo "<hr />";
 }
 
 function display_books($book_array) {
@@ -147,8 +159,6 @@ function display_books($book_array) {
 
     echo "</table>";
   }
-
-  echo "<hr />";
 }
 
 function display_book_details($book) {
