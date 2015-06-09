@@ -13,8 +13,8 @@ if (check_admin_user()) {
     $catid = $_POST['catid'];
     $price = $_POST['price'];
     $description = $_POST['description'];
-
-    if(insert_book($isbn, $title, $author, $catid, $price, $description)) {
+    $num = $_POST['num'];
+    if(insert_book($isbn, $title, $author, $catid, $price, $description, $num)) {
       echo "<p>Book <em>".stripslashes($title)."</em> was added to the database.</p>";
     } else {
       echo "<p>Book <em>".stripslashes($title)."</em> could not be added to the database.</p>";

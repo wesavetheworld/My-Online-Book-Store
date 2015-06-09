@@ -54,7 +54,7 @@ function insert_order($order_details) {
   $date = date("Y-m-d");
 
   $query = "insert into orders values
-            ('', '".$customerid."', '".$ship_phonenum."','".$ship_email."','".$_SESSION['total_price']."', '".$date."', 'PARTIAL',
+            ('', '".$customerid."', '".$ship_phonenum."','".$ship_email."','".$_SESSION['total_price']."', '".$date."', 'ORDERED',
              '".$ship_name."', '".$ship_address."')";
 
   $result = $conn->query($query);
@@ -67,7 +67,7 @@ function insert_order($order_details) {
                amount > (".$_SESSION['total_price']."-.001) and
                amount < (".$_SESSION['total_price']."+.001) and
                date = '".$date."' and
-               order_status = 'PARTIAL' and
+               order_status = 'ORDERED' and
                ship_name = '".$ship_name."' and
                ship_address = '".$ship_address."' and
                ship_email = '".$ship_email."' and

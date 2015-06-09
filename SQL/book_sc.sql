@@ -33,11 +33,11 @@ create table books
    index(title),
    index(isbn),
    index(description),
-   isbn char(13) not null primary key,
+   isbn char(13) not null,
    author char(80),
    title char(100),
    catid int unsigned,
-   price float(4,2) not null,
+   price double not null,
    url char(255) not null,
    description varchar(255),
    site char(255),
@@ -65,3 +65,8 @@ create table admin
   username char(16) not null primary key,
   password char(40) not null
 ) DEFAULT CHARSET=utf8;
+
+create table bestseller (
+  isbn char(13) not null references books(isbn),
+  quantity int unsigned not null
+)

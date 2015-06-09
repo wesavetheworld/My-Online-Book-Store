@@ -11,6 +11,7 @@
   $cat_array = get_categories();
 
   // display as links to cat pages
+  
   display_categories($cat_array);
 
   // if logged in as admin, show add, delete, edit cat links

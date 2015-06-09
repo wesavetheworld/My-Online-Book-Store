@@ -114,6 +114,11 @@ function display_book_form($book = '') {
           name="description"><?php echo $edit ? $book['description'] : ''; ?></textarea></td>
     </tr>
     <tr>
+    <td>Number:</td>
+    <td><input type="text" name="num"
+         value="<?php echo $edit ? $book['num'] : ''; ?>" /></td>
+   </tr>
+    <tr>
       <td <?php if (!$edit) { echo "colspan=2"; }?> align="center">
          <?php
             if ($edit)
@@ -189,7 +194,7 @@ function insert_category($catname) {
    }
 }
 
-function insert_book($isbn, $title, $author, $catid, $price, $description) {
+function insert_book($isbn, $title, $author, $catid, $price, $description, $num) {
 // insert a new book into the database
 
    $conn = db_connect();
@@ -207,7 +212,7 @@ function insert_book($isbn, $title, $author, $catid, $price, $description) {
    // insert new book
    $query = "insert into books values
             ('".$isbn."', '".$author."', '".$title."',
-             '".$catid."', '".$price."', '".$description."')";
+             '".$catid."', '".$price."','','".$description."','','','".$num."')";
 
    $result = $conn->query($query);
    if (!$result) {

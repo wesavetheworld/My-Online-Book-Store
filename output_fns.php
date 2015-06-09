@@ -21,6 +21,7 @@ function do_html_header($title = '') {
       li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
       hr { color: #FF0000; width=70%; text-align=center}
       a { color: #000000 }
+      table.one {table-layout: automatic}
     </style>
   </head>
   <body>
@@ -189,6 +190,8 @@ function display_book_details($book) {
     echo $book['description'];
     echo "</li><li><strong>From:</strong> ";
     echo $book['site'];
+    echo "</li><li><strong>库存剩余:</strong> ";
+    echo $book['num'],"本";
     echo "</li><li><strong>购买链接:</strong> ";
     echo '<a color = "red" href ="'.$book['url'].'">'.$book['title'].'</a>';
     echo "</li></ul></td></tr></table>";
@@ -365,7 +368,7 @@ function display_cart($cart, $change = true, $images = 1) {
     }
     echo "<td align=\"left\">
           <a href=\"show_book.php?isbn=".$isbn."\">".$book['title']."</a>
-          by ".$book['author']."</td>
+          </td>
           <td align=\"center\">\$".number_format($book['price'], 2)."</td>
           <td align=\"center\">";
 
@@ -457,7 +460,7 @@ function display_search() {
     </td>
   </tr>
  <tr>
-    <td><input type="text" name="search_request" value="" maxlength="16" style="width:300px; height:30px;"></td>
+    <td><input type="text" name="search_request" value="" maxlength="100" style="width:300px; height:30px;"></td>
    <input type="submit" class="s-submit search-box__button" hidefocus="true" value="搜索"  data-mod="sr" style="width:60px; height:30px;">
   </tr>
  </form>
@@ -527,5 +530,39 @@ function display_user_login_form() {
  </table></form>
 <?php
 }
+
+function display_user_menu() {
+  // display the menu options on this page
+?>
+<hr />
+
+<a href="member.php">首页</a> &nbsp;|&nbsp;
+<a href="historical_order.php">历史订单</a> &nbsp;|&nbsp;
+
+<a href="user_change_passwd.php">Change password</a>
+<br />
+<a href="recommend.php">推荐商品</a> &nbsp;|&nbsp;
+<a href="user_logout.php">Log out</a>
+
+
+<?php
+}
+
+function display_historical_order($id) {
+    $conn = db_connect();
+    $result = $conn->query("select * from orders where customerid = ".$id);
+    $arr = array();
+    while ($row = $result->fetch_assoc()) {
+      echo "日期: ".$row['date']."&nbsp;&nbsp;&nbsp;&nbsp;";
+      echo "金额: ".$row['amount']."元"."&nbsp;&nbsp;&nbsp;&nbsp;";
+      echo "状态: ".$row['order_status']."&nbsp;&nbsp;&nbsp;&nbsp;";
+      echo "收货人: ".$row['ship_name']."&nbsp;&nbsp;&nbsp;&nbsp;";
+      echo "收货地址: ".$row['ship_address']."&nbsp;&nbsp;&nbsp;&nbsp;";
+      echo "<a href = 'show_order.php?orderid=".$row['orderid']."&amount=".$row['amount']."'> <font color = 'blue'>订单详情 </font> </a>";
+      echo "<br>";
+    }
+}
+
+
 
 ?>
