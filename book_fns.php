@@ -102,4 +102,11 @@ function calculate_items($cart) {
   }
   return $items;
 }
+
+function get_bestsellers() {
+  $conn = db_connect();
+  $result = $conn->query("select * from books where isbn in (SELECT isbn FROM `bestseller` ORDER by quantity DESC ) limit 0,10");
+  return db_result_to_array($result);
+}
+
 ?>

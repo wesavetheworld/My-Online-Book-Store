@@ -11,9 +11,11 @@
   $cat_array = get_categories();
 
   // display as links to cat pages
-  
-  display_categories($cat_array);
 
+  display_categories($cat_array);
+  echo "<font color = 'green' size = '14'>Top 10 bestsellers</font>";
+  $best = get_bestsellers();
+  display_books($best);
   // if logged in as admin, show add, delete, edit cat links
   if(isset($_SESSION['admin_user'])) {
     display_button("admin.php", "admin-menu", "Admin Menu");
