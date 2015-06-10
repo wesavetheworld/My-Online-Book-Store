@@ -15,7 +15,7 @@ function insert_order($order_details) {
   $conn = db_connect();
   $id = $_SESSION['valid_user'];
   $result = $conn->query("select * from customers where customerid = '".$id."'")->fetch_object();
-  if((!$ship_name) && (!$ship_address) && (!$ship_email) && (!$ship_phonenum) ) {
+  if (($ship_name=="") || ($ship_address=="") || ($ship_email=="") || ($ship_phonenum=="") ) {
     $ship_name = $result->name;
     $ship_address = $result->address;
     $ship_email = $result->email;

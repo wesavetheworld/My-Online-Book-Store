@@ -8,7 +8,7 @@
 
 require_once('book_sc_fns.php');
 session_start();
-do_html_header("订单详情");
+do_my_html_header("订单详情");
 $conn = db_connect();
 $result = $conn->query("select * from order_items where orderid=".$_GET['orderid']);
 echo "<table width=\"100%\" border=\"0\">";
@@ -30,7 +30,7 @@ while ($row = $result->fetch_assoc()) {
       <?php
       echo '￥'.number_format($res->price,2)."<br>";
       echo "购买了:".$row['quantity']."册<br>";
-      echo "总金额:".$_GET['amount']."元";
+      echo "金额:".number_format($row['quantity']*$res->price,2)."元";
       echo "</td></tr>";
 	/*echo $res->title;
 	echo "<br>";
@@ -38,4 +38,5 @@ while ($row = $result->fetch_assoc()) {
 	echo "<br>";*/
 }
 echo "</table>";
-do_html_footer();
+display_my_nothing();
+do_my_html_footer();

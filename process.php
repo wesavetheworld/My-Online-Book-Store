@@ -3,8 +3,8 @@
   // The shopping cart needs sessions, so start one
   session_start();
 
-  do_html_header('Checkout');
-
+  do_my_html_header('Checkout');
+  display_my_search(false);
   $card_type = $_POST['card_type'];
   $card_number = $_POST['card_number'];
   $card_month = $_POST['card_month'];
@@ -17,6 +17,24 @@
   else if(isset($_SESSION['cart']) && ($card_type) && ($card_number) &&
      ($card_month) && ($card_year) && ($card_name)) {
     //display cart, not allowing changes and without pictures
+    $conn = db_connect();
+    foreach ($_SESSION['cart'] as $isbn => $qty) {
+        $result = $conn->query("select * from bestseller where isbn =".$isbn);
+        if (!$result) {
+            $conn->query("insert into bestseller values ('".$isbn."','".$qty."')" );
+        }
+        else if ($result->num_rows==0) {
+            $conn->query("insert into bestseller values ('".$isbn."','".$qty."')" );
+        }
+        else {
+          $conn->query("update bestseller set quantity = quantity + ".$qty);
+        }
+        $result = $conn->query("update books set num = num-".$qty." where isbn = ".$isbn);
+        if (!$result) {
+          echo "Something wrong happened.";
+          exit;
+        }
+    }
     display_cart($_SESSION['cart'], false, 0);
 
     display_shipping(calculate_shipping_cost());
@@ -37,6 +55,6 @@
     echo "<p>You did not fill in all the fields, please try again.</p><hr />";
     display_button("purchase.php", "back", "Back");
   }
-
-  do_html_footer();
+  display_my_nothing();
+  do_my_html_footer();
 ?>

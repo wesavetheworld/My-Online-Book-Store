@@ -9,10 +9,9 @@
   $book = get_book_details($isbn);
   $title =$book['title'];
   //$title = $book['title'];
-  do_html_header($title);
-  display_search();
+  do_my_html_header($title);
+  display_my_search(false);
   display_book_details($book);
-
   // set url for "continue button"
   $target = "index.php";
   if($book['catid']) {
@@ -30,5 +29,5 @@
     display_button($target, "continue-shopping", "Continue Shopping");
   }
 
-  do_html_footer();
+  do_my_html_footer();
 ?>

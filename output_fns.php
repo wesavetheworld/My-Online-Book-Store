@@ -206,7 +206,7 @@ function display_checkout_form() {
 ?>
   <br />
   <table border="0" width="100%" cellspacing="0">
-  <form action="purchase.php" method="post">
+  <form>
   <tr><th colspan="2" bgcolor="#cccccc">Your Details</th></tr>
   <?php
       $conn = db_connect();
@@ -230,6 +230,8 @@ function display_checkout_form() {
     <td><?php echo $result->email;  ?></td>
   </tr>
   <tr><th colspan="2" bgcolor="#cccccc">Shipping Address (leave blank if as above)</th></tr>
+  </form>
+  <form action="purchase.php" method="post">
   <tr>
     <td>Name</td>
     <td><input type="text" name="ship_name" value="" maxlength="40" size="40"/></td>
@@ -262,9 +264,9 @@ function display_shipping($shipping) {
 ?>
   <table border="0" width="100%" cellspacing="0">
   <tr><td align="left">Shipping</td> 
-      <td align="right"> <?php echo '$'; echo number_format($shipping, 2); echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ?></td></tr>
+      <td align="right"> <?php echo '￥'; echo number_format($shipping, 2); echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" ?></td></tr>
   <tr><th bgcolor="#cccccc" align="left">TOTAL INCLUDING SHIPPING</th>
-      <th bgcolor="#cccccc" align="right">$<?php echo number_format($shipping+$_SESSION['total_price'], 2); echo "&nbsp;&nbsp;&nbsp;&nbsp;" ?></th>
+      <th bgcolor="#cccccc" align="right"><?php echo "￥".number_format($shipping+$_SESSION['total_price'], 2); echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"  ?></th>
   </tr>
   </table><br />
 <?php
@@ -353,7 +355,7 @@ function display_cart($cart, $change = true, $images = 1) {
     echo "<tr>";
     if($images == true) {
       echo "<td align=\"left\">";
-      if (file_exists("images/".$isbn.".jpg")) {
+      /*if (file_exists("images/".$isbn.".jpg")) {
          $size = GetImageSize("images/".$isbn.".jpg");
          if(($size[0] > 0) && ($size[1] > 0)) {
            echo "<img src=\"images/".$isbn.".jpg\"
@@ -361,16 +363,15 @@ function display_cart($cart, $change = true, $images = 1) {
                   width=\"".($size[0]/3)."\"
                   height=\"".($size[1]/3)."\"/>";
          }
-      } else {
+      } else {*/
          echo "&nbsp;";
-      }
       echo "</td>";
     }
     echo "<td align=\"left\">
           <a href=\"show_book.php?isbn=".$isbn."\">".$book['title']."</a>
           </td>
-          <td align=\"center\">\$".number_format($book['price'], 2)."</td>
-          <td align=\"center\">";
+          <td align=\"left\">\$".number_format($book['price'], 2)."</td>
+          <td align=\"left\">";
 
     // if we allow changes, quantities are in text boxes
     if ($change == true) {
@@ -378,14 +379,14 @@ function display_cart($cart, $change = true, $images = 1) {
     } else {
       echo $qty;
     }
-    echo "</td><td align=\"center\">\$".number_format($book['price']*$qty,2)."</td></tr>\n";
+    echo "</td><td align=\"left\">￥".number_format($book['price']*$qty,2)."</td></tr>\n";
   }
   // display total row
   echo "<tr>
         <th colspan=\"".(2+$images)."\" bgcolor=\"#cccccc\">&nbsp;</td>
         <th align=\"center\" bgcolor=\"#cccccc\">".$_SESSION['items']."</th>
         <th align=\"center\" bgcolor=\"#cccccc\">
-            \$".number_format($_SESSION['total_price'], 2)."
+            ￥".number_format($_SESSION['total_price'], 2)."
         </th>
         </tr>";
 
@@ -393,7 +394,7 @@ function display_cart($cart, $change = true, $images = 1) {
   if($change == true) {
     echo "<tr>
           <td colspan=\"".(2+$images)."\">&nbsp;</td>
-          <td align=\"center\">
+          <td align=\"left\">
              <input type=\"hidden\" name=\"save\" value=\"true\"/>
              <input type=\"image\" src=\"images/save-changes.gif\"
                     border=\"0\" alt=\"Save Changes\"/>
@@ -536,7 +537,7 @@ function display_user_menu() {
 ?>
 <hr />
 
-<a href="member.php">首页</a> &nbsp;|&nbsp;
+<a href="index.php">首页</a> &nbsp;|&nbsp;
 <a href="historical_order.php">历史订单</a> &nbsp;|&nbsp;
 
 <a href="user_change_passwd.php">Change password</a>

@@ -37,8 +37,8 @@
     $_SESSION['items'] = calculate_items($_SESSION['cart']);
   }
 
-  do_html_header("Your shopping cart");
-
+  do_my_html_header("Your shopping cart");
+  display_my_search(false);
   if(isset($_SESSION['cart']) && (array_count_values($_SESSION['cart']))) {
     display_cart($_SESSION['cart']);
   } else {
@@ -65,6 +65,6 @@
 
   // if no SSL use below code
   display_button("checkout.php", "go-to-checkout", "Go To Checkout");
-
-  do_html_footer();
+  display_my_nothing();
+  do_my_html_footer();
 ?>

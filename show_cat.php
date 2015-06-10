@@ -7,14 +7,14 @@
   $catid = $_GET['catid'];
   $name = get_category_name($catid);
 
-  do_html_header($name);
-  display_search();
+  do_my_html_header($name);
+  display_my_search();
   // get the book info out from db
   $book_array = get_books($catid);
 
-  display_books($book_array);
+  display_my_books($book_array,'');
 
-
+  display_my_categories(get_categories());
   // if logged in as admin, show add, delete book links
   if(isset($_SESSION['admin_user'])) {
     display_button("index.php", "continue", "Continue Shopping");
@@ -25,5 +25,5 @@
     display_button("index.php", "continue-shopping", "Continue Shopping");
   }
 
-  do_html_footer();
+  do_my_html_footer();
 ?>

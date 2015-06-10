@@ -7,6 +7,6 @@
  */
 require_once('book_sc_fns.php');
 session_start();
-do_html_header("历史订单");
+do_my_html_header("历史订单");
 display_historical_order($_SESSION['valid_user']);
-do_html_footer();
+do_my_html_footer();

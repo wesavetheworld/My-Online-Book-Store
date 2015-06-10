@@ -4,7 +4,8 @@
   // The shopping cart needs sessions, so start one
   session_start();
 
-  do_html_header("Checkout");
+  do_my_html_header("Checkout");
+  display_my_search(false);
   $conn = db_connect();
   $id = $_SESSION['valid_user'];
   $result = $conn->query("select * from customers where customerid = '".$id."'")->fetch_object();
@@ -31,5 +32,5 @@
     display_button('checkout.php', 'back', 'Back');
   }
 
-  do_html_footer();
+  do_my_html_footer();
 ?>
