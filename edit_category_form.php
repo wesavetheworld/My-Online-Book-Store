@@ -4,7 +4,7 @@
 require_once('book_sc_fns.php');
 session_start();
 
-do_html_header("Edit category");
+do_my_html_header("Edit category");
 if (check_admin_user()) {
   if ($catname = get_category_name($_GET['catid'])) {
     $catid = $_GET['catid'];
@@ -17,6 +17,6 @@ if (check_admin_user()) {
 } else {
   echo "<p>You are not authorized to enter the administration area.</p>";
 }
-do_html_footer();
+do_my_html_footer();
 
 ?>

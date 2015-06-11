@@ -25,18 +25,22 @@ try {
 		    throw new Exception("抱歉，没有找到".$search_request, 1);
 		}		
 		$result = db_result_to_array($result);
-		do_html_header("搜索结果:");
-		display_search();
-		display_books($result);
-		do_html_footer();
+		do_my_html_header("搜索结果:");
+		display_my_search();
+
+		display_my_books($result,'搜索结果:');
+		display_my_categories(get_categories());
+		do_my_html_footer();
 	} else {
 		throw new Exception("Please enter something.", 1);
 	}
 }
  catch (Exception $e){
- 	do_html_header($e->getMessage());
-  	display_search();
-  	echo "Please go back and try again.";
-  	do_html_footer();
+ 	do_my_html_header($e->getMessage());
+  	display_my_search();
+  	display_my_books(array(),$e->getMessage());
+  	//display_my_nothing();
+  	display_my_categories(get_categories());
+  	do_my_html_footer();
  }
 

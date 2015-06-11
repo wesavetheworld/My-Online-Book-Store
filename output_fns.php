@@ -111,7 +111,7 @@ function do_html_heading($heading) {
 function do_html_URL($url, $name) {
   // output URL as link and br
 ?>
-  <a href="<?php echo $url; ?>"><?php echo $name; ?></a><br />
+  <a color = "blue" href="<?php echo $url; ?>"><font color = "blue" size= 4><?php echo $name; ?></font></a> <br />
 <?php
 }
 
@@ -408,29 +408,45 @@ function display_cart($cart, $change = true, $images = 1) {
 function display_login_form() {
   // dispaly form asking for name and password
 ?>
- <form method="post" action="admin.php">
- <table bgcolor="#cccccc">
-   <tr>
-     <td>Username:</td>
-     <td><input type="text" name="username"/></td></tr>
-   <tr>
-     <td>Password:</td>
-     <td><input type="password" name="passwd"/></td></tr>
-   <tr>
-     <td colspan="2" align="center">
-     <input type="submit" value="Log in"/></td></tr>
-   <tr>
- </table></form>
+ <div class="container" >
+
+      <form class="form-signin" method = "post" action="admin.php">
+        <h2 class="form-signin-heading">Admin sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" name="username" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name = "passwd" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
 <?php
 }
 
 function display_admin_menu() {
 ?>
 <br />
-<a href="index.php">Go to main site</a><br />
-<a href="insert_category_form.php">Add a new category</a><br />
-<a href="insert_book_form.php">Add a new book</a><br />
-<a href="change_password_form.php">Change admin password</a><br />
+<div class="col-sm-4">
+          <div class="list-group">
+            
+            <a href="index.php" class="list-group-item">
+              <h4 class="list-group-item-heading">回到首页</h4>
+            </a>
+            <a href="insert_category_form.php" class="list-group-item">
+              <h4 class="list-group-item-heading">添加新分类</h4>
+              
+            </a>
+            <a href="insert_book_form.php" class="list-group-item">
+              <h4 class="list-group-item-heading">添加书籍</h4>
+             
+            </a>
+            <a href="change_password_form.php" class="list-group-item">
+              <h4 class="list-group-item-heading">修改密码</h4>
+  
+            </a>
+          
+          </div>
+        </div><!-- /.col-sm-4 -->
 <?php
 }
 
@@ -503,7 +519,7 @@ function display_registration_form() {
   </tr>
   <tr>
      <td colspan=4 align="center">
-     <input type="submit" value="Register"></td></tr>
+     <input class="register btn btn-normal btn-success" type="submit" value="Register"></td></tr>
   </form>
   </table>
 <?php
@@ -540,8 +556,7 @@ function display_user_menu() {
 <a href="index.php">首页</a> &nbsp;|&nbsp;
 <a href="historical_order.php">历史订单</a> &nbsp;|&nbsp;
 
-<a href="user_change_passwd.php">Change password</a>
-<br />
+<a href="user_change_passwd.php">Change password &nbsp;|&nbsp;</a>
 <a href="recommend.php">推荐商品</a> &nbsp;|&nbsp;
 <a href="user_logout.php">Log out</a>
 

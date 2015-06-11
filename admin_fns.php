@@ -26,22 +26,23 @@ function display_category_form($category = '') {
           value="<?php echo $edit ? $category['catname'] : ''; ?>" /></td>
    </tr>
   <tr>
-    <td <?php if (!$edit) { echo "colspan=2";} ?> align="center">
+    <td <?php if (!$edit) { echo "colspan=2";} ?> align="left">
       <?php
          if ($edit) {
             echo "<input type=\"hidden\" name=\"catid\" value=\"".$category['catid']."\" />";
          }
       ?>
-      <input type="submit"
+      <input type="submit" class = "tn btn-lg btn-warning"
        value="<?php echo $edit ? 'Update' : 'Add'; ?> Category" /></form>
      </td>
      <?php
         if ($edit) {
           //allow deletion of existing categories
-          echo "<td>
+          echo "
                 <form method=\"post\" action=\"delete_category.php\">
-                <input type=\"hidden\" name=\"catid\" value=\"".$category['catid']."\" />
-                <input type=\"submit\" value=\"Delete category\" />
+                <td>
+                <input  type=\"hidden\" name=\"catid\" value=\"".$category['catid']."\" />
+                <input class = 'tn btn-lg btn-warning' type=\"submit\" value=\"Delete category\" />
                 </form></td>";
        }
      ?>
@@ -127,16 +128,17 @@ function display_book_form($book = '') {
              echo "<input type=\"hidden\" name=\"oldisbn\"
                     value=\"".$book['isbn']."\" />";
          ?>
-        <input type="submit"
+        <input type="submit" class = 'btn btn-lg btn-warning'
                value="<?php echo $edit ? 'Update' : 'Add'; ?> Book" />
         </form></td>
         <?php
            if ($edit) {
-             echo "<td>
-                   <form method=\"post\" action=\"delete_book.php\">
+             echo "
+                   <form method=\"post\" action=\"delete_book.php\" >
+                   <td >
                    <input type=\"hidden\" name=\"isbn\"
                     value=\"".$book['isbn']."\" />
-                   <input type=\"submit\" value=\"Delete book\"/>
+                   <input class = 'btn btn-lg btn-danger'  type=\"submit\" value=\"Delete book\"/>
                    </form></td>";
             }
           ?>
@@ -152,7 +154,7 @@ function display_password_form() {
 ?>
    <br />
    <form action="change_password.php" method="post">
-   <table width="250" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
+   <table width="400" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
    <tr><td>Old password:</td>
        <td><input type="password" name="old_passwd" size="16" maxlength="16" /></td>
    </tr>
@@ -162,7 +164,7 @@ function display_password_form() {
    <tr><td>Repeat new password:</td>
        <td><input type="password" name="new_passwd2" size="16" maxlength="16" /></td>
    </tr>
-   <tr><td colspan=2 align="center"><input type="submit" value="Change password">
+   <tr><td colspan=2 align="left"><input class = "tn btn-lg btn-info" type="submit" value="Change password">
    </td></tr>
    </table>
    <br />

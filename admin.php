@@ -17,21 +17,28 @@ if (isset($_POST['username']) && isset($_POST['passwd'])) {
 
    } else {
       // unsuccessful login
-      do_html_header("Problem:");
-      echo "<p>You could not be logged in.<br/>
-            You must be logged in to view this page.</p>";
+      do_my_html_header("Problem:");
+      display_my_search(false);
+      echo '<div class="alert alert-danger" role="alert">
+        <strong>You could not be logged in.</strong> You must be logged in to view this page.
+      </div>';
       do_html_url('login.php', 'Login');
-      do_html_footer();
+      display_my_nothing();
+      do_my_html_footer();
       exit;
     }
 }
 
-do_html_header("Administration");
+do_my_html_header("Administration");
+display_my_search();
+
 if (check_admin_user()) {
   display_admin_menu();
 } else {
   echo "<p>You are not authorized to enter the administration area.</p>";
 }
-do_html_footer();
+display_my_nothing();
+display_my_categories(get_categories());
+do_my_html_footer();
 
 ?>

@@ -4,7 +4,7 @@
 require_once('book_sc_fns.php');
 session_start();
 
-do_html_header("Deleting category");
+do_my_html_header("Deleting category");
 if (check_admin_user()) {
     if (isset($_POST['catid'])) {
       if(delete_category($_POST['catid'])) {
@@ -23,6 +23,6 @@ if (check_admin_user()) {
  else {
   echo "<p>You are not authorised to view this page.</p>";
 }
-do_html_footer();
+do_my_html_footer();
 
 ?>

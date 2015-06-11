@@ -28,10 +28,10 @@ function do_my_html_header($title = '') {
     <title><?php echo $title; ?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Off Canvas Template for Bootstrap_files/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="http://v3.bootcss.com/examples/offcanvas/offcanvas.css" rel="stylesheet">
+    <link href="Off Canvas Template for Bootstrap_files/offcanvas.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -58,7 +58,10 @@ function do_my_html_header($title = '') {
         </div>
         <div id="navbar" class="collapse navbar-collapse">
         	<?php
-    if (!isset($_SESSION['valid_user'])) {
+    if (isset($_SESSION['admin_user'])) {
+
+    }
+    else if (!isset($_SESSION['valid_user'])) {
       ?>
       	<form action="member.php" method="POST" class="navbar-form navbar-right" >
           <div class="form-group">
@@ -91,9 +94,15 @@ function do_my_html_header($title = '') {
   ?>
 	
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <?php 
+            if (isset($_SESSION['admin_user'])) {
+              echo '<li class="active"><a href="admin.php">Administration</a></li>';
+            } else {
+              echo '<li class="active"><a href="login.php">Administration</a></li>';
+            }
+            
+          ?>
+            <li><a href="about.php">About</a></li>
           </ul>
 		  	           
         
@@ -179,15 +188,29 @@ function display_my_books($book_array,$msg) {
         $title = "<img src='".$row['image_url']
                   ."'  height = 150 width = 150>";
         do_my_html_url($url, $title);
-        echo '<a href='.$url.'>'.'<h6>'.$row["title"].'</h6>'.'</a>';
-        echo $row['author'];
-        echo "<br>";
-        echo "<font color = '#FF0000'>￥".number_format($row['price'],2)."</font>";
-        echo "<br>";
+        $tes = "Microsoft_Visual_FoxPro数据库和面向对象程序";
+        if (mylen($row['title']) > mylen($tes)) {
+          $mytitle = mb_strcut($row['title'],0,strlen($tes)-7,'utf-8')."...";
+        } else {
+          $mytitle = $row['title'];
+        }
+        echo '<a href='.$url.'>'.'<h6>'.$mytitle.'</h6>'.'</a>';
+        
+        if ( mylen($row['author']) >= mylen($tes)) {
+          echo '<h6>'.mb_substr($row['author'],0,strlen($tes)-7,'utf-8').'</h6>';
+          echo "...";
+        } else {
+          echo '<h6>'.$row['author'].'</h6>';
+        }
+        echo "<h6><font color = '#FF0000'>￥".number_format($row['price'],2)."</font></h6>";
         echo "<br>";
       echo "</div>";
     }
     echo "</div></div>";
+}
+
+function mylen($str) {
+  return (strlen($str) + mb_strlen($str,'UTF-8')) / 2;
 }
 
 function display_my_categories($cat_array) {

@@ -4,7 +4,7 @@
 require_once('book_sc_fns.php');
 session_start();
 
-do_html_header("Deleting book");
+do_my_html_header("Deleting book");
 if (check_admin_user()) {
   if (isset($_POST['isbn'])) {
     $isbn = $_POST['isbn'];
@@ -21,6 +21,6 @@ if (check_admin_user()) {
   echo "<p>You are not authorised to view this page.</p>";
 }
 
-do_html_footer();
+do_my_html_footer();
 
 ?>

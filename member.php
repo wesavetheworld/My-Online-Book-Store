@@ -18,20 +18,22 @@ if (!isset($_SESSION['valid_user'])) {
 			$_SESSION['valid_user'] = $customerid;
 		} catch (Exception $e) {
 			do_my_html_header('Problem:');
-			echo 'You could not be logged in. You must be logged in to view this page.';
-			do_html_url('user_login.php',"Login");
+			echo '<div class="alert alert-danger" role="alert">
+        <strong>You could not be logged in.</strong> You must be logged in to view this page.
+      </div>';
+			//do_html_url('user_login.php',"Login");
 			do_my_html_footer();
 			exit;
 		}
 	}
 }
 do_my_html_header('Home');
-display_my_search();
+display_my_search(false);
 check_valid_user();
-/*if ($url_array = get_user_urls($_SESSION['valid_user'])) {
-	display_user_urls($url_array);
-}*/
+
 display_user_menu();
+
 echo "<br>";
+display_my_nothing();
 do_my_html_footer();
 

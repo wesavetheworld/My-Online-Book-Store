@@ -105,14 +105,9 @@ function calculate_items($cart) {
 
 function get_bestsellers() {
   $conn = db_connect();
-  $cnt = 0;
-  $res = array();
-  $result = $conn->query("SELECT isbn FROM `bestseller` ORDER by quantity DESC limit 0,9");
-  for (;$row = $result->fetch_assoc();++$cnt) {
-    $res[$cnt] = $conn->query("select * from books where isbn = ".$row['isbn'])->fetch_assoc();
-  }
-  //$result = $conn->query("select * from books where isbn in (SELECT isbn FROM `bestseller` ORDER by quantity DESC ) limit 0,9");
-  return $res;
+  //LIMIT & IN/ALL/ANY/SOME subquery  这里的语句更高效!
+  $result = $conn->query("select * from books where isbn in (SELECT t.isbn FROM (select * from `bestseller` ORDER by quantity DESC limit 0,9) as t )");
+  return db_result_to_array($result);
 }
 
 ?>

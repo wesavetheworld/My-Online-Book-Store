@@ -103,11 +103,16 @@ function user_login($username, $password) {
 function check_valid_user() {
 // see if somebody is logged in and notify them if not
   if (isset($_SESSION['valid_user']))  {
-      echo "You are logged in. Welcome!<br />";
+    echo '<div class="alert alert-success" role="alert">
+        <strong>Well done!</strong> You are logged in.
+      </div>';
+      
   } else {
      // they are not logged in
      do_html_heading('Problem:');
-     echo 'You are not logged in.<br />';
+     echo '<div class="alert alert-danger" role="alert">
+        <strong>Oh snap!</strong> Change a few things up and try submitting again.
+      </div>';
      do_html_url('login.php', 'Login');
      do_html_footer();
      exit;
