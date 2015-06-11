@@ -4,7 +4,7 @@
 require_once('book_sc_fns.php');
 session_start();
 
-do_html_header("Adding a category");
+do_my_html_header("Adding a category");
 if (check_admin_user()) {
   if (filled_out($_POST))   {
     $catname = $_POST['catname'];
@@ -21,6 +21,6 @@ if (check_admin_user()) {
   echo "<p>You are not authorised to view this page.</p>";
 }
 
-do_html_footer();
+do_my_html_footer();
 
 ?>

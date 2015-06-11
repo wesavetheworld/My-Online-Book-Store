@@ -97,10 +97,14 @@ function do_my_html_header($title = '') {
             <?php 
             if (isset($_SESSION['admin_user'])) {
               echo '<li class="active"><a href="admin.php">Administration</a></li>';
-            } else {
+            } 
+            else if (isset($_SESSION['valid_user'])) {
+              echo '<li><a href="member.php">User home</a></li>';
+            }
+            else {
               echo '<li class="active"><a href="login.php">Administration</a></li>';
             }
-            
+
           ?>
             <li><a href="about.php">About</a></li>
           </ul>
@@ -170,7 +174,7 @@ function display_my_search($flag = true) {
 <?php
 }
 
-function display_my_books($book_array,$msg) {
+function display_my_books($book_array,$msg,$catid = -1) {
 	if (!is_array($book_array)) {
     	echo "<p>No books currently available in this category</p>";
     	return;
@@ -181,31 +185,67 @@ function display_my_books($book_array,$msg) {
 		  </div>
           <div class="row">
 <?php
-	$cnt = 0;
-	foreach ($book_array as $row) {
+	$page = 1;
+  if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+  }
+  $cnt = count($book_array);
+  $pagesize = 9;
+  $pagenumber = $cnt / $pagesize;
+  $start = ($page-1)*$pagesize;
+  $end = $page*$pagesize-1;
+  if ($end>=$cnt) {
+    $end = $cnt-1;
+  }
+	for ($i = $start;$cnt>0 && $i <= $end; ++$i) {
+    $row = $book_array[$i];
 	  echo '<div class="col-xs-6 col-lg-4">';
       $url = "show_book.php?isbn=".$row['isbn'];
         $title = "<img src='".$row['image_url']
                   ."'  height = 150 width = 150>";
         do_my_html_url($url, $title);
-        $tes = "Microsoft_Visual_FoxPro数据库和面向对象程序";
+        $tes = "名师讲堂：ASP.NET3.5AJAX服务器编程精选71";
         if (mylen($row['title']) > mylen($tes)) {
-          $mytitle = mb_strcut($row['title'],0,strlen($tes)-7,'utf-8')."...";
-        } else {
+          $mytitle = mb_strcut($row['title'],0,strlen($tes)-12,'utf-8')."...";
+        } 
+        else if (strlen($row['title'])==0) {
+          $mytitle = "<br>";
+        }
+        else {
           $mytitle = $row['title'];
         }
         echo '<a href='.$url.'>'.'<h6>'.$mytitle.'</h6>'.'</a>';
         
         if ( mylen($row['author']) >= mylen($tes)) {
-          echo '<h6>'.mb_substr($row['author'],0,strlen($tes)-7,'utf-8').'</h6>';
-          echo "...";
-        } else {
+          echo '<h6>'.mb_strcut($row['author'],0,strlen($tes)-12,'utf-8').'...</h6>';
+        } 
+        else if (strlen($row['author'])==0) {
+          echo "<h6><br></h6>";
+        }
+        else {
           echo '<h6>'.$row['author'].'</h6>';
         }
         echo "<h6><font color = '#FF0000'>￥".number_format($row['price'],2)."</font></h6>";
         echo "<br>";
       echo "</div>";
     }
+    if ($catid!=-1) {
+      $url = "show_cat.php?catid=".$catid."&page=";
+    } else {
+      $url = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"]."&page=";
+    }
+    if ($page>1) {
+    echo "<a class = 'tn btn-lg btn-info' href=".$url.($page-1).">前一页</a>&nbsp;&nbsp;";
+  }
+  else {
+   // echo "前一页&nbsp;&nbsp;";
+  }
+  if ($page<$pagenumber) {
+    echo "<a class = 'tn btn-lg btn-info' href =".$url.($page+1).">后一页</a>";
+  }
+  else {
+    //echo "后一页";
+  }
     echo "</div></div>";
 }
 

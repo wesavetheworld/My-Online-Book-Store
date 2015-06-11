@@ -43,12 +43,17 @@ try {
     $result = $conn->query("select * from customers where username='".$username."'")->fetch_object();
     $_SESSION['valid_user'] = $result->customerid;
 
-    do_html_header('Registration successful');
-    do_html_footer();
+    do_my_html_header('Registration successful');
+    echo '<div class="alert alert-success" role="alert">
+        <strong>Registration successful!</strong> Welcome.
+      </div>';
+    do_my_html_footer();
 } catch (Exception $e) {
-	echo 'Problem:<br/>';
-    do_html_header($e->getMessage());
-	do_html_footer();
+    do_my_html_header($e->getMessage());
+    echo '<div class="alert alert-danger" role="alert">
+        <strong>Registration failed.&nbsp;</strong>'.$e->getMessage().'
+      </div>';
+	do_my_html_footer();
 	exit;
 }
 

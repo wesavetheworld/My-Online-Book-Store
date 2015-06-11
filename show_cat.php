@@ -12,7 +12,10 @@
   // get the book info out from db
   $book_array = get_books($catid);
 
-  display_my_books($book_array,'');
+  if (!$book_array) {
+    display_my_books(array(),"No books currently available in this category");
+  }
+  else display_my_books($book_array,'',$catid);
 
   display_my_categories(get_categories());
   // if logged in as admin, show add, delete book links

@@ -9,8 +9,8 @@
 require_once('book_sc_fns.php');
 session_start();
 if (!isset($_SESSION['valid_user'])) {
-	$username = $_POST['username'];
-	$passwd = $_POST['passwd'];
+	$username = @$_POST['username'];
+	$passwd = @$_POST['passwd'];
 
 	if (isset($username)&& isset($passwd)) {
 		try {
@@ -28,12 +28,12 @@ if (!isset($_SESSION['valid_user'])) {
 	}
 }
 do_my_html_header('Home');
-display_my_search(false);
+
 check_valid_user();
 
 display_user_menu();
 
 echo "<br>";
-display_my_nothing();
+
 do_my_html_footer();
 

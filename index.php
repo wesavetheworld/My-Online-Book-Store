@@ -3,7 +3,7 @@
   include ('book_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
-  do_my_html_header("Welcome to Book-O-Rama");
+  do_my_html_header("Welcome to Online Bookstore!");
   display_my_search();
   //echo "<p>Please choose a category:</p>";
 

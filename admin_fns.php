@@ -69,7 +69,7 @@ function display_book_form($book = '') {
   // optional PHP bits throughout
 ?>
   <form method="post"
-        action="<?php echo $edit ? 'edit_book.php' : 'insert_book.php';?>">
+        action="<?php echo $edit ? 'edit_book.php' : 'insert_book.php';?>" enctype="multipart/form-data">
   <table border="0">
   <tr>
     <td>ISBN:</td>
@@ -85,6 +85,12 @@ function display_book_form($book = '') {
     <td>Book Author:</td>
     <td><input type="text" name="author"
          value="<?php echo $edit ? $book['author'] : ''; ?>" /></td>
+   </tr>
+   <tr>
+     <td> 上传图片 </td>
+     <td>
+       <input type="file" name="file" id="file" /> 
+     </td>
    </tr>
    <tr>
       <td>Category:</td>
@@ -196,7 +202,7 @@ function insert_category($catname) {
    }
 }
 
-function insert_book($isbn, $title, $author, $catid, $price, $description, $num) {
+function insert_book($isbn, $title, $author, $catid, $price, $description, $num, $img_url) {
 // insert a new book into the database
 
    $conn = db_connect();
@@ -214,7 +220,7 @@ function insert_book($isbn, $title, $author, $catid, $price, $description, $num)
    // insert new book
    $query = "insert into books values
             ('".$isbn."', '".$author."', '".$title."',
-             '".$catid."', '".$price."','','".$description."','','','".$num."')";
+             '".$catid."', '".$price."','','".$description."','本站','".$img_url."','".$num."')";
 
    $result = $conn->query($query);
    if (!$result) {
@@ -241,7 +247,7 @@ function update_category($catid, $catname) {
 }
 
 function update_book($oldisbn, $isbn, $title, $author, $catid,
-                     $price, $description) {
+                     $price, $description, $img_url = "") {
 // change details of book stored under $oldisbn in
 // the database to new details in arguments
 
