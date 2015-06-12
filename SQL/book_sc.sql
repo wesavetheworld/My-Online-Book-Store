@@ -12,6 +12,7 @@ create table customers
   passwd char(40) not null,
   email varchar(100) not null
 ) DEFAULT CHARSET=utf8;
+/*这里我们声明所有的列都是NOT NULL,这是一个小小的优化*/
 
 create table orders
 (
@@ -22,10 +23,11 @@ create table orders
   index (customerid),
   amount float(6,2),
   date date not null,
-  order_status char(10),
+  order_status char(10) not null,
   ship_name char(60) not null,
   ship_address char(80) not null
 ) DEFAULT CHARSET=utf8;
+/*由于创建订单之前我们可能无法知道订单的总金额，所以允许amount列为NULL 对常用的列建立索引   明确各个数据表之间的外键*/
 
 create table books
 (
@@ -33,7 +35,7 @@ create table books
    index(title),
    index(isbn),
    index(description),
-   isbn char(13) not null,
+   isbn char(13) not null primary key,
    author char(80),
    title char(100),
    catid int unsigned,
@@ -44,6 +46,7 @@ create table books
    image_url char(255),
    num int unsigned not null,
 ) DEFAULT CHARSET=utf8;
+/*isbn可以作为一本图书的唯一标识，作为主键*/
 
 create table categories
 (
@@ -59,6 +62,7 @@ create table order_items
   quantity tinyint unsigned not null,
   primary key (orderid, isbn)
 ) DEFAULT CHARSET=utf8;
+/*多列主键*/
 
 create table admin
 (
@@ -67,6 +71,12 @@ create table admin
 ) DEFAULT CHARSET=utf8;
 
 create table bestseller (
+  index(isbn),
   isbn char(13) not null references books(isbn),
   quantity int unsigned not null
-)
+) DEFAULT CHARSET=utf8;
+
+create table book_reviews (
+  isbn char(13) not null primary key,
+  review text
+) DEFAULT CHARSET=utf8;
