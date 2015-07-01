@@ -11,11 +11,15 @@ session_destroy();
 do_my_html_header("Logging Out");
 
 if (!empty($old_user)) {
-  echo "<p>Logged out.</p>";
+  echo "<div class='alert alert-info' role='alert'>
+        <strong>Logged out.</strong> 
+      </div>";
   do_html_url("login.php", "Login");
 } else {
   // if they weren't logged in but came to this page somehow
-  echo "<p>You were not logged in, and so have not been logged out.</p>";
+  echo "<div class='alert alert-warning' role='alert'>
+        <strong>You were not logged in, and so have not been logged out.</strong> 
+      </div>";
   do_html_url("login.php", "Login");
 }
 

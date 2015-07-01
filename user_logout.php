@@ -16,20 +16,21 @@ $result_dest = session_destroy();
 
 // start output html
 do_my_html_header('Logging Out');
-display_my_search(false);
 if (!empty($old_user)) {
   if ($result_dest)  {
-    // if they were logged in and are now logged out
-    echo 'Logged out.<br />';
-    //do_html_url('user_login.php', 'Login');
+    echo "<div class='alert alert-info' role='alert'>
+        <strong>Logged out.</strong> 
+      </div>";
   } else {
-   // they were logged in and could not be logged out
-    echo 'Could not log you out.<br />';
+   echo "<div class='alert alert-danger' role='alert'>
+        <strong>Oh snap!</strong> Can't log you out.
+      </div>";
   }
 } else {
   // if they weren't logged in but came to this page somehow
-  echo 'You were not logged in, and so have not been logged out.<br />';
+  echo "<div class='alert alert-warning' role='alert'>
+        <strong>You were not logged in, and so have not been logged out.</strong> 
+      </div>";
 }
-display_my_nothing();
 do_my_html_footer();
 

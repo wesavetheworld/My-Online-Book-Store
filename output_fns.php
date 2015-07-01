@@ -579,6 +579,45 @@ function display_historical_order($id) {
     }
 }
 
+function display_reviews($isbn) {
+?>
+
+<?php
+  $conn = db_connect();
+  $query = "select * from book_reviews where isbn =".$isbn." order by posted DESC";
+  $result = $conn->query($query);
+  if (!$result) {
+    echo "Something wrong happened.";
+  }
+  else {
+    while ($row = $result->fetch_assoc()) {
+      $query = "select name from customers where customerid = ".$row['customerid'];
+      $name = $conn->query($query)->fetch_object()->name;
+      $posted = $row['posted'];
+      $review = $row['review'];
+      /*echo "<div class='page-header'>
+        <h4>$name &nbsp; $posted</h4>
+      </div>";*/
+      echo "<h4> $name  &nbsp; $posted </h4>";
+      echo "<div class='well'>
+        <p> $review </p>
+      </div>";
+    }
+  }
+}
 
 
+function display_review_form($myisbn) {
+?>
+  <table cellpadding="0" cellspacing="0" border="0" align = "center">
+  <form action="store_new_post.php?isbn=<?php echo $myisbn ?>"
+        method="post">
+    <div align = "center"> 
+      <textarea name="review" rows="10" cols="55"></textarea>
+    </div>
+    <div align = "center"><button class="btn btn-lg btn-primary btn-block" type="submit">评论</button></div>
+  </form>
+  </table>
+<?php
+}
 ?>
