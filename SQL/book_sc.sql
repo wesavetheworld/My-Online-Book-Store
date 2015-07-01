@@ -77,9 +77,9 @@ create table bestseller (
 ) DEFAULT CHARSET=utf8;
 
 create table book_reviews (
+  rid int unsigned not null auto_increment primary key,
   isbn char(13) not null,
   posted datetime not null,
   review text,
-  customerid int unsigned not null references customers(customerid),
-  primary key (isbn, customerid, posted)
+  customerid int unsigned not null references customers(customerid)
 ) DEFAULT CHARSET=utf8;

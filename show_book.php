@@ -20,8 +20,7 @@
   }
   // if logged in as admin, show edit book links
   if(check_admin_user()) {
-    display_reviews($isbn);
-    display_review_form($isbn);
+    display_reviews($isbn,false);
     display_button("edit_book_form.php?isbn=".$isbn, "edit-item", "Edit Item");
     display_button("admin.php", "admin-menu", "Admin Menu");
     display_button($target, "continue", "Continue");

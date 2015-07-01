@@ -30,7 +30,9 @@
       
   }
   if (!isset($_SESSION['valid_user'])) {
-    echo "<p> You must be logged in to check out. </p>";
+    echo '<div class="alert alert-warning" role="alert">
+        <strong>You are not logged in.</strong> You must be logged in to check out.
+      </div>';
   }
   else if(isset($_SESSION['cart']) &&  (array_count_values($_SESSION['cart']))) {
     display_cart($_SESSION['cart'], false, 0);

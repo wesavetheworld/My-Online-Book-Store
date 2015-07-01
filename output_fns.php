@@ -579,7 +579,7 @@ function display_historical_order($id) {
     }
 }
 
-function display_reviews($isbn) {
+function display_reviews($isbn,$isuser = true) {
 ?>
 
 <?php
@@ -595,10 +595,14 @@ function display_reviews($isbn) {
       $name = $conn->query($query)->fetch_object()->name;
       $posted = $row['posted'];
       $review = $row['review'];
+      $rid = $row['rid'];
       /*echo "<div class='page-header'>
         <h4>$name &nbsp; $posted</h4>
       </div>";*/
-      echo "<h4> $name  &nbsp; $posted </h4>";
+      $url = "delete_review.php?rid=".$rid."&isbn=".$isbn;
+      if ($isuser) 
+        echo "<h4> $name  &nbsp; $posted </h4>";
+      else echo "<h4> $name  &nbsp; $posted <a href = $url> <font color = 'blue'> 删除 </font></a> </h4>";
       echo "<div class='well'>
         <p> $review </p>
       </div>";

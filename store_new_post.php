@@ -21,7 +21,7 @@ $review = $_POST['review'];
 $isbn = $_GET['isbn'];
 $conn = db_connect();
 date_default_timezone_set("Asia/Hong_Kong");
-$query = "insert into book_reviews values ('".$isbn."','".date('c')."','".$review."','".$customerid."')";
+$query = "insert into book_reviews values ('','".$isbn."','".date('c')."','".$review."','".$customerid."')";
 $result = $conn->query($query);
 $url = "show_book.php?isbn=".$isbn;
    if ((!$result)) {
@@ -29,5 +29,6 @@ $url = "show_book.php?isbn=".$isbn;
      exit;
    }
    else {
-   	echo "<META HTTP-EQUIV=\"refresh\" CONTENT=\"0.01;url=$url\">"; 
+   	echo "<META HTTP-EQUIV=\"refresh\" CONTENT=\"0.001;url=$url\">"; 
    }
+do_my_html_footer();
