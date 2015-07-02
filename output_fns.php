@@ -591,6 +591,7 @@ function display_reviews($isbn,$isuser = true) {
   else {
     while ($row = $result->fetch_assoc()) {
       $query = "select name from customers where customerid = ".$row['customerid'];
+     //echo $query;
       $name = $conn->query($query)->fetch_object()->name;
       $posted = $row['posted'];
       $review = $row['review'];
