@@ -9,7 +9,7 @@
   if(!isset($_SESSION['cart'])||!(array_count_values($_SESSION['cart']))) {
     echo "<p>There are no items in your cart.</p>";
     display_button("show_cart.php", "continue-shopping", "Continue Shopping");
-    do_html_footer();
+    do_my_html_footer();
     exit;
   }
   $flag = true;

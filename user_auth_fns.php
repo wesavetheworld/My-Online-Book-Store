@@ -16,7 +16,7 @@ function register($username, $email, $passwd, $phonenum, $address, $name) {
 
   // if ok, put in db
   $result = $conn->query("insert into customers values
-                         ('','".$name."','".$phonenum."','".$address."','".$username."',sha1('".$passwd."'), '".$email."')");
+                         ('','".$name."','".$phonenum."','".$address."','".$username."',sha1('".$passwd."'), '".$email."',false)");
   if (!$result) {
     throw new Exception('Could not register you in database - please try again later.');
   }
@@ -85,6 +85,44 @@ function change_password($username, $old_password, $new_password) {
   }
 }
 
+function my_user_change_password($userid, $old_password, $new_password) {
+// change password for username/old_password to new_password
+// return true or false
+
+  // if the old password is right
+  // change their password to new_password and return true
+  // else return false
+  try  {
+      $conn = db_connect();
+  $result = $conn->query("select customerid from customers
+                         where customerid='".$userid."'
+                         and passwd = sha1('".$old_password."')");
+  if (!$result) {
+    throw new Exception("Could not log you in.", 1);
+  } 
+  if ($result->num_rows<=0) {
+    throw new Exception("Could not log you in.", 1);
+  }
+
+      if (!($conn = db_connect())) {
+        return false;
+      }
+
+      $result = $conn->query("update customers
+                              set passwd = sha1('".$new_password."')
+                              where customerid = '".$userid."'");
+      if (!$result) {
+        return false;  // not changed
+      } else {
+        return true;  // changed successfully
+      }
+  }
+  catch (Exception $e) {
+    echo $e->getMessage();
+    }
+  
+}
+
 function user_login($username, $password) {
   $conn = db_connect();
   $result = $conn->query("select customerid from customers
@@ -114,28 +152,39 @@ function check_valid_user() {
         <strong>Oh snap!</strong> Change a few things up and try submitting again.
       </div>';
      do_html_url('login.php', 'Login');
-     do_html_footer();
+     do_my_html_footer();
      exit;
   }
 }
 
-/*function deal_with_title($title){
-  $orititle = $title;
-  if (substr($title, 0,3)==="《") {
-        $title = substr($title, 3);
-      }
-      if (substr($title, 0,3)==="【") {
-        $title = split('】',$title)[1];
-      }
-      $title = split('。', $title)[0];
-      $title = split('《', $title)[0];
-      $title = split('（', $title)[0];
-      $title = split('\(', $title)[0];
-      $title = split('》',$title)[0];
-      $title = split('【',$title)[0];
-      if (strlen($title)==0) return $orititle;
-      else return $title;
-}*/
-
+function sendmail($receiver, $subject, $content) {
+  require_once('book_sc_fns.php');
+  $mail = new PHPMailer(true); //实例化PHPMailer类,true表示出现错误时抛出异常
+  $mail->IsSMTP(); // 使用SMTP
+  try {
+    $mail->CharSet ="UTF-8";//设定邮件编码
+    $mail->Host       = "smtp.163.com"; // SMTP server
+    $mail->SMTPDebug  = 1;// 启用SMTP调试 1 = errors  2 =  messages
+    $mail->SMTPAuth   = true;// 服务器需要验证
+    $mail->Port       = 25;//默认端口   
+    
+    $mail->Username   = "noreplyatbookstore"; //SMTP服务器的用户帐号
+    $mail->Password   = "hxleowdqawrrmgze";//SMTP服务器的用户密码
+    $mail->AddReplyTo('noreplyatbookstore@163.com', '回复'); //收件人回复时回复到此邮箱
+   $mail->AddAddress($receiver, 'Bookstore'); //收件人如果多人发送循环执行AddAddress()方法即可 还有一个方法时清除收件人邮箱ClearAddresses()
+  $mail->SetFrom('noreplyatbookstore@163.com', 'Bookstore');//发件人的邮箱
+  $mail->Subject = $subject;
+  $mail->Body = $content;
+  $mail->IsHTML(true);
+    $mail->Send();
+    echo "Message Sent OK";
+  } catch (phpmailerException $e) {
+    echo $e->errorMessage();//从PHPMailer捕获异常
+    return false;
+  } catch (Exception $e) {
+    echo $e->getMessage();
+    return true;
+  }
+}
 
 ?>

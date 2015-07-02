@@ -557,7 +557,6 @@ function display_user_menu() {
 <a href="historical_order.php">历史订单</a> &nbsp;|&nbsp;
 
 <a href="user_change_passwd.php">Change password &nbsp;|&nbsp;</a>
-<a href="recommend.php">推荐商品</a> &nbsp;|&nbsp;
 <a href="user_logout.php">Log out</a>
 
 
@@ -617,11 +616,91 @@ function display_review_form($myisbn) {
   <form action="store_new_post.php?isbn=<?php echo $myisbn ?>"
         method="post">
     <div align = "center"> 
-      <textarea name="review" rows="10" cols="55"></textarea>
+      <textarea name="review" rows="3" cols="120"></textarea>
     </div>
     <div align = "center"><button class="btn btn-lg btn-primary btn-block" type="submit">评论</button></div>
   </form>
   </table>
 <?php
 }
+
+function display_modify_form() {
+  //display the form that asks for name and address
+?>
+  <br />
+  <table border="0" width="100%" cellspacing="0">
+  <form>
+  <tr><th colspan="2" bgcolor="#cccccc">Your Details</th></tr>
+  <?php
+      $conn = db_connect();
+      $id = $_SESSION['valid_user'];
+      $result = $conn->query("select * from customers where customerid = '".$id."'")->fetch_object();
+  ?>
+      <tr>
+    <td>Name</td>
+    <td><?php echo $result->name;  ?></td>
+  </tr>
+  <tr>
+    <td>Address</td>
+    <td><?php echo $result->address;  ?></td>
+  </tr>
+  <tr>
+    <td>Phone number</td>
+    <td><?php echo $result->phonenum;  ?></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><?php echo $result->email;  ?></td>
+  </tr>
+  <tr><th colspan="2" bgcolor="#cccccc">修改信息 </th></tr>
+  </form>
+  <form action="modify_info.php" method="post">
+  <tr>
+    <td>Name</td>
+    <td><input type="text" name="name" value="<?php echo $result->name;  ?>" maxlength="40" size="40"/></td>
+  </tr>
+  <tr>
+    <td>Address</td>
+    <td><input type="text" name="address" value="<?php echo $result->address;  ?>" maxlength="40" size="40"/></td>
+  </tr>
+  <tr>
+    <td>Phone number</td>
+    <td><input type="text" name="phonenum" value="<?php echo $result->phonenum;  ?>" maxlength="20" size="40"/></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><input type="text" name="email" value="<?php echo $result->email;  ?>" maxlength="20" size="40"/></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">保存</button>
+    </td>
+  </tr>
+  </form>
+  </table>
+<?php
+}
+
+function display_user_password_form() {
+// displays html change password form
+?>
+   <br />
+   <form action="user_change_passwd_process.php" method="post">
+   <table width="400" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
+   <tr><td>Old password:</td>
+       <td><input type="password" name="old_passwd" size="16" maxlength="16" /></td>
+   </tr>
+   <tr><td>New password:</td>
+       <td><input type="password" name="new_passwd" size="16" maxlength="16" /></td>
+   </tr>
+   <tr><td>Repeat new password:</td>
+       <td><input type="password" name="new_passwd2" size="16" maxlength="16" /></td>
+   </tr>
+   <tr><td colspan=2 align="left"><input class = "tn btn-lg btn-info" type="submit" value="Change password">
+   </td></tr>
+   </table>
+   <br />
+<?php
+}
+
 ?>

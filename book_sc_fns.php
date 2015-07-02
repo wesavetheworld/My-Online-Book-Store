@@ -7,4 +7,7 @@
   include_once('admin_fns.php');
   include_once('order_fns.php');
   include_once('my_fns.php');
+  include_once('PHPmailer/class.phpmailer.php');
+  include_once('PHPmailer/class.pop3.php');
+  include_once('PHPmailer/class.smtp.php');
 ?>

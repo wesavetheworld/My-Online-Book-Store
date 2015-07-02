@@ -89,7 +89,7 @@ function insert_order($order_details) {
               orderid = '".$orderid."' and isbn = '".$isbn."'";
     $result = $conn->query($query);
     $query = "insert into order_items values
-              ('".$orderid."', '".$isbn."', ".$detail['price'].", $quantity)";
+              ('".$orderid."', '".$isbn."', ".$detail['price'].", $quantity,$customerid)";
     $result = $conn->query($query);
     if(!$result) {
       return false;

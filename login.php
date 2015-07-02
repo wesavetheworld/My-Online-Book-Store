@@ -5,5 +5,5 @@
 
  display_login_form();
 
- do_html_footer();
+ do_my_html_footer();
 ?>

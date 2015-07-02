@@ -10,9 +10,6 @@
   // get categories out of database
   $cat_array = get_categories();
 
-  // display as links to cat pages
-
-  //echo "<font color = 'green' size = '14'>Top 10 bestsellers</font>";
   $best = get_bestsellers();
   display_my_books($best,"Bestsellers this month!");
   display_my_categories($cat_array);

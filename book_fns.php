@@ -110,4 +110,16 @@ function get_bestsellers() {
   return db_result_to_array($result);
 }
 
+function display_recommendations($id) {
+  $conn = db_connect();
+  $q = "select * from books where isbn in (select t.isbn from 
+    (select isbn from order_items where customerid in 
+    (select distinct (b2.customerid) from order_items b1, order_items b2
+    where b1.customerid = $id and b1.customerid != b2.customerid and b1.isbn != b2.isbn)
+    and isbn not in (select isbn from order_items where customerid = $id )
+    group by isbn order by count(isbn) DESC limit 0,9) as t)";
+  $result = $conn->query($q);
+  return db_result_to_array($result);
+}
+
 ?>

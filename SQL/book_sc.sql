@@ -10,7 +10,8 @@ create table customers
   address char(80) not null,
   username varchar(16) not null,
   passwd char(40) not null,
-  email varchar(100) not null
+  email varchar(100) not null,
+  verified boolean not null
 ) DEFAULT CHARSET=utf8;
 /*这里我们声明所有的列都是NOT NULL,这是一个小小的优化*/
 
@@ -60,6 +61,7 @@ create table order_items
   isbn char(13) not null references books(isbn),
   item_price float(4,2) not null,
   quantity tinyint unsigned not null,
+  customerid int not null references customers(customerid),
   primary key (orderid, isbn)
 ) DEFAULT CHARSET=utf8;
 /*多列主键*/

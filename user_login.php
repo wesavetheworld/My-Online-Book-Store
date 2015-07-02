@@ -7,7 +7,7 @@
  */
 
 require_once('book_sc_fns.php');
-do_html_header('User login');
+do_my_html_header('User login');
 display_user_login_form();
-do_html_footer();
+do_my_html_footer();
 

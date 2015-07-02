@@ -84,7 +84,9 @@ function do_my_html_header($title = '') {
               <ul class="dropdown-menu" role="menu" align = "center">
                 <li><a href="member.php">个人中心</a></li>
                 <li class="divider"></li>
-                <li><a href="#">修改信息</a></li>
+                <li><a href="modify.php">修改信息</a></li>
+                <li><a href="historical_order.php">历史订单</a></li>
+                <li><a href="user_change_passwd.php">修改密码</a></li>
                 <li><a href="user_logout.php">登出</a></li>
               </ul>
             <!-- </li> -->
@@ -320,3 +322,4 @@ function display_my_button($target, $image, $alt) {
            alt=\"".$alt."\" border=\"0\" height=\"50\"
            width=\"135\"/></a>";
 }
+
