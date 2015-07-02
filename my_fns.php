@@ -72,6 +72,7 @@ function do_my_html_header($title = '') {
 		              </div>
           <input type="submit" class="btn btn-primary" name="action" value="登录">
           <a class="register btn btn-normal btn-success" href="register_form.php">注册</a>
+          <a class="register btn btn-normal btn-success" href="forget.php">忘记密码</a>
         </form>
       <?php
     } else {

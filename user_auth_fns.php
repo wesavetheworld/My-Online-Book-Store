@@ -13,7 +13,28 @@ function register($username, $email, $passwd, $phonenum, $address, $name) {
   if ($result->num_rows>0) {
     throw new Exception('That username is taken - go back and choose another one.');
   }
+  $result = $conn->query("select * from customers where email='".$email."'");
+  if (!$result) {
+    throw new Exception('Could not execute query');
+  }
+  if ($result->num_rows>0) {
+    throw new Exception('That email is taken - go back and choose another one.');
+  }
+$result = $conn->query("select * from customers where phonenum='".$phonenum."'");
+if (!$result) {
+    throw new Exception('Could not execute query');
+  }
+  if ($result->num_rows>0) {
+    throw new Exception('That email is taken - go back and choose another one.');
+  }
+  $result = $conn->query("select * from customers where phonenum='".$phonenum."'");
+  if (!$result) {
+    throw new Exception('Could not execute query');
+  }
 
+  if ($result->num_rows>0) {
+    throw new Exception('That phonenum is taken - go back and choose another one.');
+  }
   // if ok, put in db
   $result = $conn->query("insert into customers values
                          ('','".$name."','".$phonenum."','".$address."','".$username."',sha1('".$passwd."'), '".$email."',false)");
@@ -177,7 +198,8 @@ function sendmail($receiver, $subject, $content) {
   $mail->Body = $content;
   $mail->IsHTML(true);
     $mail->Send();
-    echo "Message Sent OK";
+    //echo "Message Sent OK";
+    return true;
   } catch (phpmailerException $e) {
     echo $e->errorMessage();//从PHPMailer捕获异常
     return false;

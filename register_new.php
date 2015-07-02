@@ -37,15 +37,25 @@ try {
       throw new Exception('Your password must be between 6 and 16 characters Please go back and try again.');
     }
 
+    if ((strlen($phonenum)!=11)) {
+        throw new Exception('手机号输入有误');
+    }
+
     register($username, $email, $passwd, $phonenum, $address,$name);
 
     $conn = db_connect();
     $result = $conn->query("select * from customers where username='".$username."'")->fetch_object();
-    $_SESSION['valid_user'] = $result->customerid;
+    //$_SESSION['valid_user'] = $result->customerid;
 
     do_my_html_header('Registration successful');
+
+    $token = md5(trim($passwd)).trim($email);
+    $result = $conn->query("insert into customer_verify values ('".$email."','".$token."')");
+    $cont = "请访问下面的网址激活账户,24小时失效:<br> "."localhost/My-Online-Book-Store/member.php?verify=".$token;
+    sendmail($email, "Bookstore新用户激活",$cont);
+
     echo '<div class="alert alert-success" role="alert">
-        <strong>Registration successful!</strong> Welcome.
+        <strong>激活邮件已经发送到了您的邮箱。</strong> 请查收。
       </div>';
     do_my_html_footer();
 } catch (Exception $e) {

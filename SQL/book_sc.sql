@@ -85,3 +85,8 @@ create table book_reviews (
   review text,
   customerid int unsigned not null references customers(customerid)
 ) DEFAULT CHARSET=utf8;
+
+create table customer_verify (
+  email varchar(100) not null references customers(email),
+  token char(255) not null primary key
+) DEFAULT CHARSET=utf8;
