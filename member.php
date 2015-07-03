@@ -21,7 +21,7 @@ if (!isset($_SESSION['valid_user'])) {
 			if (!$result) {
 				do_my_html_header('Problem:');
 				echo '<div class="alert alert-danger" role="alert">
-        <strong>You could not be logged in.</strong> You must be logged in to view this page.
+        <strong>Sorry.</strong> You must be logged in to view this page.
       </div>';
       do_my_html_footer();
 			exit;
@@ -37,7 +37,7 @@ if (!isset($_SESSION['valid_user'])) {
 		} catch (Exception $e) {
 			do_my_html_header('Problem:');
 			echo '<div class="alert alert-danger" role="alert">
-        <strong>You could not be logged in.</strong> You must be logged in to view this page.
+        <strong>You could not be logged in.</strong>'.$e->getMessage().'
       </div>';
 			do_my_html_footer();
 			exit;

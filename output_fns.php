@@ -583,10 +583,10 @@ function display_reviews($isbn,$isuser = true) {
 
 <?php
   $conn = db_connect();
-  $query = "select * from book_reviews where isbn =".$isbn." order by posted DESC";
-  $result = $conn->query($query);
+  $query = "select * from book_reviews where isbn = '".$isbn."' order by posted DESC";
+  $result = @$conn->query($query);
   if (!$result) {
-    echo "Something wrong happened.";
+   echo "Something wrong happened.";
   }
   else {
     while ($row = $result->fetch_assoc()) {

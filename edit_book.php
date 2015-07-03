@@ -13,9 +13,10 @@ if (check_admin_user()) {
     $author = $_POST['author'];
     $catid = $_POST['catid'];
     $price = $_POST['price'];
+    $num = $_POST['num'];
     $description = $_POST['description'];
 
-    if(update_book($oldisbn, $isbn, $title, $author, $catid, $price, $description)) {
+    if(update_book($oldisbn, $isbn, $title, $author, $catid, $price, $description,$num)) {
       echo "<p>Book was updated.</p>";
     } else {
       echo "<p>Book could not be updated.</p>";

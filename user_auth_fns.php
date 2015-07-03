@@ -150,12 +150,12 @@ function user_login($username, $password) {
                          where username='".$username."'
                          and passwd = sha1('".$password."')");
   if (!$result) {
-    throw new Exception("Could not log you in.", 1);
+    throw new Exception("Could not log you in1.", 1);
   } 
   if ($result->num_rows>0) {
     return $result->fetch_object()->customerid; //$result->fetch_object  返回当前行
   } else {
-    throw new Exception("Could not log you in.", 1);
+    throw new Exception("Could not log you in2.", 1);
   }
 }
 

@@ -247,7 +247,7 @@ function update_category($catid, $catname) {
 }
 
 function update_book($oldisbn, $isbn, $title, $author, $catid,
-                     $price, $description, $img_url = "") {
+                     $price, $description, $num, $img_url = "") {
 // change details of book stored under $oldisbn in
 // the database to new details in arguments
 
@@ -259,10 +259,11 @@ function update_book($oldisbn, $isbn, $title, $author, $catid,
              author = '".$author."',
              catid = '".$catid."',
              price = '".$price."',
-             description = '".$description."'
+             description = '".$description."',
+             num = '".$num."'
              where isbn = '".$oldisbn."'";
 
-   $result = @$conn->query($query);
+   $result = $conn->query($query);
    if (!$result) {
      return false;
    } else {

@@ -6,11 +6,11 @@ create table customers
 (
   customerid int unsigned not null auto_increment primary key,
   name char(60) not null,
-  phonenum char(11),
+  phonenum char(11) unique,
   address char(80) not null,
-  username varchar(16) not null,
+  username varchar(16) not null unique,
   passwd char(40) not null,
-  email varchar(100) not null,
+  email varchar(100) not null unique,
   verified boolean not null
 ) DEFAULT CHARSET=utf8;
 /*这里我们声明所有的列都是NOT NULL,这是一个小小的优化*/

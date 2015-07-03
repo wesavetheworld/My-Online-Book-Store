@@ -18,7 +18,7 @@ if (isset($_POST['name'])&&isset($_POST['address'])&&isset($_POST['phonenum'])&&
 	$conn = db_connect();
 	$result = 
 	$conn->query("update customers set name = '".$name."', address = '".
-	$address."', phonenum = '".$phonenum."', email = '".$email."'");
+	$address."', phonenum = '".$phonenum."', email = '".$email."' where customerid = '".$_SESSION['valid_user']."'");
 	if (!$result) {
 		echo '<div class="alert alert-warning" role="alert">
         <strong>Something wrong happened.</strong>
